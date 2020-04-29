@@ -10,14 +10,17 @@
             <a href="/products/bass" class="w3-bar-item w3-button">bass guitars</a>
             <a href="/products/amplifiers" class="w3-bar-item w3-button">amplifiers</a>
             <a href="/products/accessories" class="w3-bar-item w3-button">accessories</a>
-            <a href="#" class="w3-bar-item w3-button w3-right material-icons">account_circle</a>
-            <a href="#" class="w3-bar-item w3-button w3-right material-icons">shopping_cart</a>
+            <!--Fake login -->
+            <a href="#" class="w3-bar-item w3-button w3-right material-icons" onclick="document.getElementById('login-modal').style.display='block'">account_circle</a>
+            <a href="#" class="w3-bar-item w3-button w3-right material-icons" onclick="document.getElementById('login-modal').style.display='block'">shopping_cart</a>
         </div>
         <div class="w3-container w3-theme-d3 w3-padding-16">
             <br>
             <h2 style="color: #aaadbd">Guitar shop</h2>
         </div>
     </div>
+    <div th:insert="common/login-modal :: login"></div>
+    <div th:insert="common/reg-modal :: reg"></div>
 </div>
 </body>
 </html>

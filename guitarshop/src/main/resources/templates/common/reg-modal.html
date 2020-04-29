@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="reg">
+    <div id="reg-modal" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-display-middle w3-animate-opacity" style="max-width: 800px;">
+                        <span onclick="document.getElementById('reg-modal').style.display='none'" class="w3-button w3-xlarge w3-display-topright">
+                            &times;
+                        </span>
+            <br>
+            <form class="w3-container">
+                <div class="w3-section">
+                    <h2 class="w3-text-theme w3-margin">Sign up</h2>
+                    <label>Email</label>
+                    <input class="w3-input w3-border" type="email" required>
+                    <label>Password</label>
+                    <input class="w3-input w3-border" type="password" required>
+                    <label>Repeat password</label>
+                    <input class="w3-input w3-border" type="password" required>
+                    <label>Name</label>
+                    <input class="w3-input w3-border" type="text" required>
+                    <label>Surname</label>
+                    <input class="w3-input w3-border" type="text" required>
+                    <label>Phone</label>
+                    <input class="w3-input w3-border" type="tel" required>
+                    <label>Date of birth</label>
+                    <input class="w3-input w3-border" type="date">
+                    <br>
+                    <button type="submit" class="w3-btn w3-theme">Sign up</button>
+                    <p>Already have account? <a href="#">Sign in</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
