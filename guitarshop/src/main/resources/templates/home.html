@@ -5,7 +5,8 @@
     <title>Home</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="css/style.css" media="all" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+
 </head>
 <body>
 <div th:insert="common/header :: header"></div>
@@ -50,7 +51,6 @@
 
             Also, play it out loud for an hour or so. Every now and then, try to add some licks in. This will help you be a better
         </div>
-
         <script>
             var slideIndex = 1;
             showDivs(slideIndex);
@@ -79,10 +79,11 @@
                 dots[slideIndex-1].className += " w3-white";
             }
         </script>
+
+
     </div>
     <div th:insert="common/footer :: footer"></div>
 
 </div>
-
 </body>
 </html>

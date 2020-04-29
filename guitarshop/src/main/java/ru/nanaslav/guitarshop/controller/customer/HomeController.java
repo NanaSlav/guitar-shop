@@ -1,4 +1,4 @@
-package ru.nanaslav.guitarshop.controller;
+package ru.nanaslav.guitarshop.controller.customer;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
