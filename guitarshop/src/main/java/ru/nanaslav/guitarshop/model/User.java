@@ -3,11 +3,9 @@ package ru.nanaslav.guitarshop.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class User implements UserDetails {
@@ -20,6 +18,12 @@ public class User implements UserDetails {
     private String email;
     private String phone;
     private String password;
+    private boolean active;
+
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<UserRole> roles;
 
 
     public long getId() { return id; }
@@ -45,6 +49,14 @@ public class User implements UserDetails {
     public String getPassword() { return password; }
 
     public void setPassword(String password) { this.password = password; }
+
+    public boolean isActive() { return active; }
+
+    public void setActive(boolean active) { this.active = active; }
+
+    public Set<UserRole> getRoles() { return roles; }
+
+    public void setRoles(Set<UserRole> roles) { this.roles = roles; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -73,6 +85,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isActive();
     }
 }
