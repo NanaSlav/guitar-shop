@@ -8,26 +8,27 @@
                             &times;
                         </span>
             <br>
-            <form class="w3-container">
+            <form class="w3-container" th:action="@{/registration}" method="post">
                 <div class="w3-section">
                     <h2 class="w3-text-theme w3-margin">Sign up</h2>
                     <label>Email</label>
-                    <input class="w3-input w3-border" type="email" required>
+                    <input class="w3-input w3-border" type="email" required name="email">
                     <label>Password</label>
-                    <input class="w3-input w3-border" type="password" required>
+                    <input class="w3-input w3-border" type="password" required name="password">
                     <label>Repeat password</label>
                     <input class="w3-input w3-border" type="password" required>
                     <label>Name</label>
-                    <input class="w3-input w3-border" type="text" required>
+                    <input class="w3-input w3-border" type="text" required name="name">
                     <label>Surname</label>
-                    <input class="w3-input w3-border" type="text" required>
+                    <input class="w3-input w3-border" type="text" required name="surname">
                     <label>Phone</label>
-                    <input class="w3-input w3-border" type="tel" required>
+                    <input class="w3-input w3-border" type="tel" required name="phone">
                     <label>Date of birth</label>
-                    <input class="w3-input w3-border" type="date">
+                    <input class="w3-input w3-border" type="date" name="date">
                     <br>
                     <button type="submit" class="w3-btn w3-theme">Sign up</button>
-                    <p>Already have account? <a href="#">Sign in</a></p>
+                    <p>Already have account? <a href="#" onclick="document.getElementById('reg-modal').style.display='none';
+                                                                    document.getElementById('login-modal').style.display='block'">Sign in</a></p>
                 </div>
             </form>
         </div>

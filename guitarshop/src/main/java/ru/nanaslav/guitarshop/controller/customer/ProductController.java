@@ -19,9 +19,7 @@ public class ProductController {
     }
 
     @GetMapping("/acoustic")
-    public String acousticGuitars() {
-        return "product-list";
-    }
+    public String acousticGuitars() { return "product-list"; }
 
     @GetMapping("/bass")
     public String bassGuitars() {

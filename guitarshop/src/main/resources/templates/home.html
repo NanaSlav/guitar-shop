@@ -9,6 +9,8 @@
 
 </head>
 <body>
+<div th:insert="common/login-modal :: login"></div>
+<div th:insert="common/reg-modal :: reg"></div>
 <div th:insert="common/header :: header"></div>
 <div th:insert="common/menu :: menu"></div>
 
@@ -81,6 +83,11 @@
         </script>
 
 
+    </div>
+    <div th:if="${login}" >
+        <script>
+            document.getElementById('login-modal').style.display='block';
+        </script>
     </div>
 
     <div th:insert="common/footer :: footer"></div>
