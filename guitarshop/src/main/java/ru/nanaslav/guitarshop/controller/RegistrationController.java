@@ -1,6 +1,7 @@
 package ru.nanaslav.guitarshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,9 @@ import java.util.Collections;
 public class RegistrationController {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @PostMapping("registration")
@@ -31,6 +35,7 @@ public class RegistrationController {
             return "test";
         }
         user.setActive(true);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(UserRole.USER));
         userRepository.save(user);
         return "redirect:/login";
