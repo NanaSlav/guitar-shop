@@ -1,6 +1,7 @@
 package ru.nanaslav.guitarshop.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -11,8 +12,12 @@ public class Product {
     private int price;
     private String description;
     private boolean available;
+
+
+    @ElementCollection(targetClass = Category.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"))
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private Set<Category> categories;
 
     public long getId() {
         return id;
@@ -50,15 +55,9 @@ public class Product {
         return available;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
+    public void setAvailable(boolean available) { this.available = available; }
 
-    public Category getCategory() {
-        return category;
-    }
+    public Set<Category> getCategories() { return categories; }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    public void setCategories(Set<Category> categories) { this.categories = categories; }
 }

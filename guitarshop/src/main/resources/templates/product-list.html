@@ -13,7 +13,7 @@
 <div th:insert="common/menu :: menu"></div>
 <div class="w3-main w3-theme-l4">
     <div class="w3-container w3-theme w3-padding-32">
-                    <h1>Electric guitars</h1>
+                    <h1 th:text="${title}"></h1>
 
         <div class="w3-large w3-padding w3-margin">
             Electric guitar is fantastic musical instrument. If you can learn to play it that's great but I think for as a conductor it would be even better.
@@ -64,47 +64,21 @@
 
         <div class="w3-row">
 
-
+            <div th:each="product : ${products}">
             <div class="w3-col m3 w3-margin">
-                <div class="w3-card-4 product-card w3-display-container w3-theme-l4">
-                    <img src="https://www.cortguitarsshop.ru/netcat_files/multifile/2772/cr250_tbk_6_strunnaya_elektrogitara_l_1_0.png" width="160">
+                    <div class="w3-card-4 product-card w3-display-container w3-theme-l4">
+                        <img src="https://www.cortguitarsshop.ru/netcat_files/multifile/2772/cr250_tbk_6_strunnaya_elektrogitara_l_1_0.png" width="160">
 
-                    <div class="w3-container w3-display-bottomleft" style="width: 100%;">
-                        <p class="w3-large">Cort guitar 1</p>
-                        <p class="w3-xlarge">12650</p>
-                    </div>
+                        <div class="w3-container w3-display-bottomleft" style="width: 100%;">
+                            <p class="w3-large" th:text="${product.getName()}"></p>
+                            <p class="w3-xlarge" th:text="${product.getPrice()}"></p>
+                        </div>
+
                 </div>
             </div>
-
-            <div class="w3-col m3 w3-margin">
-                <div class="w3-card-4 product-card w3-display-container w3-theme-l4">
-                    <img src="https://www.cortguitarsshop.ru/netcat_files/multifile/2772/yorktown_bv_tab_6_strunnaya_elektrogitara_s_chehlom_l_1_2.png" width="160">
-                    <div class="w3-container w3-display-bottomleft">
-                        <p class="w3-large">Cort guitar 2</p>
-                        <p class="w3-xlarge">17650</p>
-                    </div>
-                </div>
             </div>
 
-            <div class="w3-col m3 w3-margin">
-                <div class="w3-card-4 product-card w3-display-container w3-theme-l4">
-                    <img src="https://www.cortguitarsshop.ru/netcat_files/multifile/2772/G260DX_TAB__0_.png" width="160">
-                    <div class="w3-container w3-display-bottomleft">
-                        <p class="w3-large">Cort guitar 3</p>
-                        <p class="w3-xlarge">21700</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="w3-col m3 w3-margin">
-                <div     class="w3-card-4 product-card w3-display-container w3-theme-l4">
-                    <img src="https://www.cortguitarsshop.ru/netcat_files/multifile/2772/154/x_6_vpr_bks_6_strunnaya_elektrogitara_l_1_2.png" width="160">
-                    <div class="w3-container w3-display-bottomleft">
-                        <p class="w3-large">Cort guitar 4</p>
-                        <p class="w3-xlarge">32700</p>
-                    </div>
-                </div>
-            </div>
             <br>
 
             <div class="w3-bar">
