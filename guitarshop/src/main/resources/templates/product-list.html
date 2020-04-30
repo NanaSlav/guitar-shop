@@ -82,13 +82,11 @@
             <br>
 
             <div class="w3-bar">
-                <a href="#" class="w3-button">&laquo</a>
-                <a href="#" class="w3-button">1</a>
-                <a href="#" class="w3-button">2</a>
-                <a href="#" class="w3-button">3</a>
-                <a href="#" class="w3-button">4</a>
-                <a href="#" class="w3-button">&raquo</a>
-
+                <a th:href=" @{${urlBegin} + '?page=' + ${prev} + '&size=' + ${size} }" class="w3-button">&laquo</a>
+                <a th:each="p : ${pageable}">
+                    <a th:href="@{${urlBegin} + '?page=' + ${p} + '&size=' + ${size}}" th:text="${p}" class="w3-button"></a>
+                </a>
+                <a th:href=" @{${urlBegin} + '?page=' + ${next} + '&size=' + ${size} }" class="w3-button">&raquo</a>
             </div>
 
         </div>
