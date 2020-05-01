@@ -67,8 +67,12 @@
             <div th:each="product : ${products}">
             <div class="w3-col m3 w3-margin">
                     <div class="w3-card-4 product-card w3-display-container w3-theme-l4">
-                        <img src="https://www.cortguitarsshop.ru/netcat_files/multifile/2772/cr250_tbk_6_strunnaya_elektrogitara_l_1_0.png" width="160">
-
+                        <div th:if="${product.getImage() != null}">
+                            <img th:src="'/img/' + ${product.getImage()}" width="160" class="w3-margin">
+                        </div>
+                        <div th:if="${product.getImage() == null}">
+                            <img th:src="'/img/default.png'" width="230" class="w3-margin">
+                        </div>
                         <div class="w3-container w3-display-bottomleft" style="width: 100%;">
                             <p class="w3-large" th:text="${product.getName()}"></p>
                             <p class="w3-xlarge" th:text="${product.getPrice()}"></p>

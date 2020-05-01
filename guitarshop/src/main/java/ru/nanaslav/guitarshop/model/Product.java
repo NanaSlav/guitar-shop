@@ -12,6 +12,7 @@ public class Product {
     private int price;
     private String description;
     private boolean available;
+    private String image;
 
 
     @ElementCollection(targetClass = Category.class, fetch = FetchType.EAGER)
@@ -50,6 +51,10 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImage() { return image; }
+
+    public void setImage(String image) { this.image = image; }
 
     public boolean isAvailable() {
         return available;
