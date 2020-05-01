@@ -56,14 +56,9 @@
         <script>
             var slideIndex = 1;
             showDivs(slideIndex);
+            function plusDivs(n) {showDivs(slideIndex += n);}
 
-            function plusDivs(n) {
-                showDivs(slideIndex += n);
-            }
-
-            function currentDiv(n) {
-                showDivs(slideIndex = n);
-            }
+            function currentDiv(n) {showDivs(slideIndex = n);}
 
             function showDivs(n) {
                 var i;
@@ -81,17 +76,13 @@
                 dots[slideIndex-1].className += " w3-white";
             }
         </script>
-
-
     </div>
     <div th:if="${login}" >
         <script>
             document.getElementById('login-modal').style.display='block';
         </script>
     </div>
-
     <div th:insert="common/footer :: footer"></div>
-
 </div>
 </body>
 </html>

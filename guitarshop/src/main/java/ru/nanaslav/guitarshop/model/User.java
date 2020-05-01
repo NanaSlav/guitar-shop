@@ -25,6 +25,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;
 
+    @OneToOne
+    @JoinColumn(name = "cart")
+    Cart cart;
+
 
     public long getId() { return id; }
 
@@ -57,6 +61,10 @@ public class User implements UserDetails {
     public Set<UserRole> getRoles() { return roles; }
 
     public void setRoles(Set<UserRole> roles) { this.roles = roles; }
+
+    public Cart getCart() { return cart; }
+
+    public void setCart(Cart cart) { this.cart = cart; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

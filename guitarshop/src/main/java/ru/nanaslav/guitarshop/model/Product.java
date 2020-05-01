@@ -20,6 +20,16 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Set<Category> categories;
 
+    @OneToMany(
+            mappedBy = "product",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }, orphanRemoval = true
+    )
+    Set<CartItem> items;
+
+
     public long getId() {
         return id;
     }
