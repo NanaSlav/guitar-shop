@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.nanaslav.guitarshop.model.Category;
@@ -143,5 +144,13 @@ public class ProductController {
         model.addAttribute("urlBegin", "/products/amplifiers/");
         model.addAttribute("products", products);
         return "product-list";
+    }
+
+    @GetMapping("{id}")
+    public String productDetails(@PathVariable(value = "id") long id,
+                                 Model model) {
+        Product product = productRepository.findById(id).orElseThrow(IllegalStateException::new);
+        model.addAttribute("product", product);
+        return "product-details";
     }
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+<body>
+<div th:insert="common/header :: header"></div>
+<div th:insert="common/menu :: menu"></div>
+
+<div class="w3-main w3-theme-l4">
+    <div class="w3-container w3-text-theme main-content w3-theme">
+        <div class="w3-row">
+            <div class="w3-col m4">
+                <img class="w3-opacity-min" src="https://www.cortguitarsshop.ru/netcat_files/multifile/2772/G260DX_TAB__0_.png" style="height: 600px;">
+            </div>
+            <div class="w3-col m8" style="color:#d5d6de  ;">
+                <h1 class="w3-margin" >Guitar name</h1>
+                <p class="w3-large">          This guitar has a very good sound. Despite its light weight and unusual appearance, it is extremely responsive to your playing and produces sounds that will help you improve in various guitar techniques. The SRC/LIC's sound is a nice blend of smooth and crunchy that will satisfy any bass player and will keep you coming back to it for many hours. We are very excited to get our hands on the SR60 and help it find a place in your work.
+
+                    The SR60's flamed maple top, fingerboard with binding, and truss rod cover will definitely stand out in any player's workshop or recording studio. The combination of maple neck and maple fretboard provides outstanding tonal versatility. The SR60 gives you the full sound and ability of</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="w3-container">
+        <h2 class="w3-text-theme">Characteristics:</h2>
+        <div class="w3-large w3-margin">
+            <ul>
+                <li> Construction: bolt neck </li>
+                <li>Hull: mahogany</li>
+                <li>Scale length: 24"</li>
+                <li>Frets: 24</li>
+                <li>Frets: 22</li>
+                <li>Construction: trapeze tailpiece</li>
+                <li>Fretboard: rosewood, perle at 11.7"</li>
+                <li>Cast Alnico single-coil pickups with 3/16" gauge, Mabuchi single-coil on overdrive</li>
+                <li> in Standard, Stencil or all 18 configurations</li>
+            </ul>
+
+        </div>
+        <div class="w3-theme-l1" style="height: 2px;"></div>
+
+
+
+        <div class="w3-row w3-large">
+            <div class="w3-col m6">
+                <p>Producer: Cort</p>
+                <p>Articul: KX12653H</p>
+                <p>Available</p>
+            </div>
+            <div class="w3-col m6 w3-right-align">
+
+                <h2 class="w3-text-theme">285 $</h2>
+                <button class="w3-btn w3-theme-l1">Buy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div th:insert="common/footer :: footer"></div>
+
+</div>
+</body>
+</html>
