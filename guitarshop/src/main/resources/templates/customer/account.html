@@ -37,15 +37,15 @@
             </div>
         </form>
 
-        <form class="w3-container w3-card-4 w3-margin" method="post" action="/account/password">
+        <form class="w3-container w3-card-4 w3-margin" th:action="@{/account/password}" method="post">
             <h2>Change password</h2>
             <div class="w3-section">
                 <label>Current password</label>
-                <input type="password" class="w3-input w3-border">
+                <input type="password" class="w3-input w3-border" name="currentPassword">
                 <label>New password</label>
-                <input type="password" class="w3-input w3-border">
+                <input type="password" class="w3-input w3-border" name="password">
                 <label>Repeat password</label>
-                <input type="password" class="w3-input w3-border">
+                <input type="password" class="w3-input w3-border" name="passwordCheck">
                 <br>
                 <button type="submit" class="w3-btn w3-theme">Ok</button>
             </div>

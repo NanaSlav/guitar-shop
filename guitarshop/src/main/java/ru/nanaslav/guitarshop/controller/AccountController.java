@@ -2,6 +2,7 @@ package ru.nanaslav.guitarshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ import java.sql.Date;
 public class AccountController {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping
     public String accountPage(@AuthenticationPrincipal User user,
@@ -50,6 +54,25 @@ public class AccountController {
         user.setPhone(phone);
         user.setDateOfBirth(dateOfBirth);
         userRepository.save(user);
+        return "redirect:/account";
+    }
+
+    @PostMapping("/password")
+    public String editPassword(@AuthenticationPrincipal User user,
+                               @RequestParam String currentPassword,
+                               @RequestParam String password,
+                               @RequestParam String passwordCheck) {
+        if (bCryptPasswordEncoder.matches(currentPassword, user.getPassword())) {
+            if (password.equals(passwordCheck)) {
+                user.setPassword(bCryptPasswordEncoder.encode(password));
+                userRepository.save(user);
+                // ok
+            } else {
+                // passwords do not match
+            }
+        } else {
+            // invalid current password
+        }
         return "redirect:/account";
     }
 }
