@@ -19,25 +19,25 @@
         </div>
     </div>
     <div class="w3-container w3-text-theme main-content">
-        <form class="w3-container w3-card-4 w3-margin">
+        <form class="w3-container w3-card-4 w3-margin" th:action="@{/account/edit}" method="post">
             <h2>Account information</h2>
             <div class="w3-section">
                 <label>Email:</label>
-                <input type="email" class="w3-input w3-border" value="NanaS@mail.ru" required>
+                <input type="email" class="w3-input w3-border" th:value="${user.getEmail()}" required name="email">
                 <label>Name</label>
-                <input type="text" class="w3-input w3-border" value="Nana" required>
+                <input type="text" class="w3-input w3-border" th:value="${user.getName()}" required name="name">
                 <label>Surname</label>
-                <input type="text" class="w3-input w3-border" value="Slav" required>
+                <input type="text" class="w3-input w3-border" th:value="${user.getSurname()}" required name="surname">
                 <label>Phone</label>
-                <input type="tel" class="w3-input w3-border" value="+7(111)111-11-11" required>
+                <input type="tel" class="w3-input w3-border" th:value="${user.getPhone()}" required name="phone">
                 <label>Date of birth</label>
-                <input type="date" class="w3-input w3-border" value="01.01.1979">
+                <input type="date" class="w3-input w3-border" th:value="${user.getDateOfBirth()}" name="dateOfBirth">
                 <br>
                 <button type="submit" class="w3-btn w3-theme">Save changes</button>
             </div>
         </form>
 
-        <form class="w3-container w3-card-4 w3-margin">
+        <form class="w3-container w3-card-4 w3-margin" method="post" action="/account/password">
             <h2>Change password</h2>
             <div class="w3-section">
                 <label>Current password</label>

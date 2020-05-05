@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class User implements UserDetails {
     private String email;
     private String phone;
     private String password;
+    private Date dateOfBirth;
     private boolean active;
 
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
@@ -65,6 +67,10 @@ public class User implements UserDetails {
     public Cart getCart() { return cart; }
 
     public void setCart(Cart cart) { this.cart = cart; }
+
+    public Date getDateOfBirth() { return dateOfBirth; }
+
+    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
