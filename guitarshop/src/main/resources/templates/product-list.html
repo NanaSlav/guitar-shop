@@ -66,8 +66,8 @@
 
             <div th:each="product : ${products}">
             <a th:href="@{'/products/' + ${product.getId()}}" style="text-decoration: none">
-                <div class="w3-col m3 w3-margin">
-                    <div class="w3-card product-card w3-display-container w3-theme-l4 w3-hover-shadow">
+                <div class="w3-col m3 w3-margin product-card w3-display-container">
+
                         <div th:if="${product.getImage() != null}">
                             <img th:src="'/img/' + ${product.getImage()}" width="160" class="w3-margin">
                         </div>
@@ -76,10 +76,10 @@
                         </div>
                         <div class="w3-container w3-display-bottomleft" style="width: 100%;">
                             <p class="w3-large" th:text="${product.getName()}"></p>
-                            <p class="w3-xlarge" th:text="${product.getPrice()}"></p>
+                            <p class="w3-xlarge" th:text="${product.getPrice()} + ' $'"></p>
                         </div>
 
-                    </div>
+
                 </div>
             </a>
             </div>
