@@ -56,9 +56,9 @@
         <div class="w3-dropdown-hover w3-right">
             <div class="w3-button">Number of elements on page</div>
             <div class="w3-dropdown-content w3-bar-blocked w3-border" style="right: 0;">
-                <a href="#" class="w3-bar-item w3-button" style="width: 100%;">10 elements</a>
-                <a href="#" class="w3-bar-item w3-button" style="width: 100%;">20 elements</a>
-                <a href="#" class="w3-bar-item w3-button" style="width: 100%;">3o elements</a>
+                <a th:href="@{${urlBegin} + '?size=10'}" class="w3-bar-item w3-button" style="width: 100%;">10 elements</a>
+                <a th:href="@{${urlBegin} + '?size=20'}" class="w3-bar-item w3-button" style="width: 100%;">20 elements</a>
+                <a th:href="@{${urlBegin} + '?size=30'}" class="w3-bar-item w3-button" style="width: 100%;">30 elements</a>
             </div>
         </div>
 
@@ -90,7 +90,8 @@
             <div class="w3-bar">
                 <a th:href=" @{${urlBegin} + '?page=' + ${prev} + '&size=' + ${size} }" class="w3-button">&laquo</a>
                 <a th:each="p : ${pageable}">
-                    <a th:href="@{${urlBegin} + '?page=' + ${p} + '&size=' + ${size}}" th:text="${p}" class="w3-button"></a>
+                    <a th:if="${p != 0}" th:href="@{${urlBegin} + '?page=' + ${p} + '&size=' + ${size}}" th:text="${p}" class="w3-button"></a>
+                    <a th:if="${p == 0}" th:text="..."></a>
                 </a>
                 <a th:href=" @{${urlBegin} + '?page=' + ${next} + '&size=' + ${size} }" class="w3-button">&raquo</a>
             </div>
