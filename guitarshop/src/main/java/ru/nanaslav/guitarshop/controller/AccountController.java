@@ -2,6 +2,7 @@ package ru.nanaslav.guitarshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,5 +75,14 @@ public class AccountController {
             // invalid current password
         }
         return "redirect:/account";
+    }
+
+    @PostMapping("/delete")
+    public String deleteAccount(@AuthenticationPrincipal User user) {
+        user.setActive(false);
+        user.setEmail(null);
+        userRepository.save(user);
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        return "redirect:/";
     }
 }

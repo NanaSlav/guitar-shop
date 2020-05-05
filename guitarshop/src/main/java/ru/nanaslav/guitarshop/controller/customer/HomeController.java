@@ -18,13 +18,7 @@ public class HomeController {
         model.addAttribute("login", true);
         return "customer/home";
     }
-    // TODO: remove it later. It's just temporary logout
-    @GetMapping("/logout")
-    public String logout() {
-        return "logout-temp";
-    }
 
-    // TODO: remove it later. It's login test
     @Autowired
     ProductRepository productRepository;
 
