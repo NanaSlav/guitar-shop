@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+</head>
+<body>
+<div th:insert="common/header :: customer"></div>
+<div th:insert="common/menu :: customer"></div>
+
+<div class="w3-main w3-theme-l4">
+    <div class="w3-container w3-theme w3-padding-32">
+        <h1>Account</h1>
+        <div class="w3-large w3-padding-32 w3-margin">
+            It's account info. You can change it whenever you want. Don't allow people to browse the site from your computer, or they'll look for private chat rooms."
+        </div>
+    </div>
+    <div class="w3-container w3-text-theme main-content">
+        <form class="w3-container w3-card-4 w3-margin">
+            <h2>Account information</h2>
+            <div class="w3-section">
+                <label>Email:</label>
+                <input type="email" class="w3-input w3-border" value="NanaS@mail.ru" required>
+                <label>Name</label>
+                <input type="text" class="w3-input w3-border" value="Nana" required>
+                <label>Surname</label>
+                <input type="text" class="w3-input w3-border" value="Slav" required>
+                <label>Phone</label>
+                <input type="tel" class="w3-input w3-border" value="+7(111)111-11-11" required>
+                <label>Date of birth</label>
+                <input type="date" class="w3-input w3-border" value="01.01.1979">
+                <br>
+                <button type="submit" class="w3-btn w3-theme">Save changes</button>
+            </div>
+        </form>
+
+        <form class="w3-container w3-card-4 w3-margin">
+            <h2>Change password</h2>
+            <div class="w3-section">
+                <label>Current password</label>
+                <input type="password" class="w3-input w3-border">
+                <label>New password</label>
+                <input type="password" class="w3-input w3-border">
+                <label>Repeat password</label>
+                <input type="password" class="w3-input w3-border">
+                <br>
+                <button type="submit" class="w3-btn w3-theme">Ok</button>
+            </div>
+        </form>
+
+        <h2 class="w3-text-theme">Order history</h2>
+        <table class="w3-table-all w3-hoverable w3-card-4">
+            <tr class="w3-theme-l3 w3-text-theme">
+                <th>№</th>
+                <th>Order number</th>
+                <th>Date</th>
+                <th>Cost</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>12345</td>
+                <td>11.01.17</td>
+                <td>15 $</td>
+                <td>In progress</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>34561</td>
+                <td>14.08.15</td>
+                <td>670 $</td>
+                <td>Executed</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>91732</td>
+                <td>14.03.15</td>
+                <td>176 $</td>
+                <td>Executed</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>323341</td>
+                <td>12.01.15</td>
+                <td>67 $</td>
+                <td>Executed</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>32981</td>
+                <td>17.11.14</td>
+                <td>73 $</td>
+                <td>Executed</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>33463</td>
+                <td>14.09.14</td>
+                <td>153 $</td>
+                <td>Executed</td>
+            </tr>
+        </table>
+
+    </div>
+    <div th:insert="common/footer :: footer"></div>
+
+</div>
+</body>
+</html>

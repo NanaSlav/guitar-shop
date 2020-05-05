@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
-
 </head>
 <body>
 <div th:insert="common/header :: customer"></div>
@@ -14,7 +13,6 @@
 <div class="w3-main w3-theme-l4">
     <div class="w3-container w3-theme w3-padding-32">
                     <h1 th:text="${title}"></h1>
-
         <div class="w3-large w3-padding w3-margin">
             Electric guitar is fantastic musical instrument. If you can learn to play it that's great but I think for as a conductor it would be even better.
 
@@ -23,20 +21,14 @@
             I don't think I'm particularly concerned about risk because I think that every artist has some sort of risk so you have to worry about your risk and so you can't go in, to have such an image that you don't know what's going to happen and I think a lot of it comes from this and that's that I can do what I do without the limitations of having to dance around a room to these music. But because there's such a grand narrative
         </div>
     </div>
-
     <div class="w3-container w3-text-theme main-content w3-theme-l3">
-
-
-
         <div class="w3-dropdown-hover">
             <div class="w3-button">Sort by price</div>
             <div class="w3-dropdown-content w3-bar-blocked w3-border">
                 <a href="#" class="w3-bar-item w3-button" style="width: 100%;">Cheap first</a>
                 <a href="#" class="w3-bar-item w3-button" style="width: 100%;">Expensive first</a>
-
             </div>
         </div>
-
         <div class="w3-dropdown-hover">
             <div class="w3-button">Sort by name</div>
             <div class="w3-dropdown-content w3-bar-blocked w3-border">
@@ -44,7 +36,6 @@
                 <a href="#" class="w3-bar-item w3-button" style="width: 100%;">Z-A</a>
             </div>
         </div>
-
         <div class="w3-dropdown-hover">
             <div class="w3-button">Sort by date</div>
             <div class="w3-dropdown-content w3-bar-blocked w3-border">
@@ -52,7 +43,6 @@
                 <a href="#" class="w3-bar-item w3-button" style="width: 100%;">Old first</a>
             </div>
         </div>
-
         <div class="w3-dropdown-hover w3-right">
             <div class="w3-button">Number of elements on page</div>
             <div class="w3-dropdown-content w3-bar-blocked w3-border" style="right: 0;">
@@ -61,9 +51,7 @@
                 <a th:href="@{${urlBegin} + '?size=30'}" class="w3-bar-item w3-button" style="width: 100%;">30 elements</a>
             </div>
         </div>
-
         <div class="w3-row">
-
             <div th:each="product : ${products}">
             <a th:href="@{'/products/' + ${product.getId()}}" style="text-decoration: none">
                 <div class="w3-col m3 w3-margin product-card w3-display-container">
@@ -78,15 +66,10 @@
                             <p class="w3-large" th:text="${product.getName()}"></p>
                             <p class="w3-xlarge" th:text="${product.getPrice()} + ' $'"></p>
                         </div>
-
-
                 </div>
             </a>
             </div>
-
-
             <br>
-
             <div class="w3-bar">
                 <a th:href=" @{${urlBegin} + '?page=' + ${prev} + '&size=' + ${size} }" class="w3-button">&laquo</a>
                 <a th:each="p : ${pageable}">
@@ -95,12 +78,9 @@
                 </a>
                 <a th:href=" @{${urlBegin} + '?page=' + ${next} + '&size=' + ${size} }" class="w3-button">&raquo</a>
             </div>
-
         </div>
-
     </div>
     <div th:insert="common/footer :: footer"></div>
 </div>
-
 </body>
 </html>

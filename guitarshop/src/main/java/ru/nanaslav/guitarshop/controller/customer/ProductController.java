@@ -15,7 +15,6 @@ import ru.nanaslav.guitarshop.repository.ProductRepository;
 import ru.nanaslav.guitarshop.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -79,7 +78,7 @@ public class ProductController {
         setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/electric/");
         model.addAttribute("products", products);
-        return "product-list";
+        return "customer/product-list";
     }
 
     @GetMapping("/acoustic")
@@ -94,7 +93,7 @@ public class ProductController {
         setPages(page,last,size,model);
         model.addAttribute("urlBegin", "/products/electric");
         model.addAttribute("products", products);
-        return "product-list";
+        return "customer/product-list";
 
     }
 
@@ -111,7 +110,7 @@ public class ProductController {
         setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/bass/");
         model.addAttribute("products", products);
-        return "product-list";
+        return "customer/product-list";
     }
 
     @GetMapping("/accessories")
@@ -127,7 +126,7 @@ public class ProductController {
         setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/accessories/");
         model.addAttribute("products", products);
-        return "product-list";
+        return "customer/product-list";
     }
 
     @GetMapping("/amplifiers")
@@ -143,7 +142,7 @@ public class ProductController {
         setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/amplifiers/");
         model.addAttribute("products", products);
-        return "product-list";
+        return "customer/product-list";
     }
 
     @GetMapping("{id}")
@@ -153,6 +152,6 @@ public class ProductController {
         model.addAttribute("characteristics", product.getCharacteristics().split("\n"));
 
         model.addAttribute("product", product);
-        return "product-details";
+        return "customer/product-details";
     }
 }

@@ -1,4 +1,4 @@
-package ru.nanaslav.guitarshop.controller;
+package ru.nanaslav.guitarshop.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public class ProductManagementController {
 
     @GetMapping("/add")
     public String addProductForm() {
-        return "add-product";
+        return "admin/add-product";
     }
 
 
