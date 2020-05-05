@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="menu">
+<div th:fragment="customer">
     <nav class="w3-sidebar w3-bar-block w3-theme-l1 w3-xlarge w3-display-container">
         <div class="w3-display-right">
             <a href="/products/electric" class="w3-bar-item w3-button w3-hover-theme w3-right-align w3-padding-32 w3-round-large">electric guitars</a>
@@ -12,6 +12,20 @@
         </div>
     </nav>
     <div class="w3-sidebar w3-bar-block w3-theme-l1 w3-display-right"></div>
+</div>
+
+<div th:fragment="admin">
+    <nav class="w3-sidebar w3-bar-block w3-theme-l1 w3-xlarge w3-display-container">
+        <div class="w3-display-right">
+            <a href="#" class="w3-bar-item w3-button w3-hover-theme w3-right-align w3-padding-32 w3-round-large">Products</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-theme w3-right-align w3-padding-32 w3-round-large">Orders</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-theme w3-right-align w3-padding-32 w3-round-large">Add product</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-theme w3-right-align w3-padding-32 w3-round-large">Account</a>
+        </div>
+
+    </nav>
+    <div class="w3-sidebar w3-bar-block w3-theme-l1 w3-display-right"></div>
+
 </div>
 </body>
 </html>

@@ -8,9 +8,15 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(length=64)
     private String name;
     private int price;
+    @Column(length=1024)
     private String description;
+    @Column(length=1024)
+    private String characteristics;
+    @Column(length=32)
+    private String producer;
     private boolean available;
     private String image;
 
@@ -75,4 +81,12 @@ public class Product {
     public Set<Category> getCategories() { return categories; }
 
     public void setCategories(Set<Category> categories) { this.categories = categories; }
+
+    public String getCharacteristics() { return characteristics; }
+
+    public void setCharacteristics(String characteristics) { this.characteristics = characteristics; }
+
+    public String getProducer() { return producer; }
+
+    public void setProducer(String producer) { this.producer = producer; }
 }

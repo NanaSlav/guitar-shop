@@ -13,4 +13,5 @@ import java.util.Set;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByCategoriesContains(Category category, Pageable pageable);
+    Product findByName(String name);
 }
