@@ -150,6 +150,8 @@ public class ProductController {
     public String productDetails(@PathVariable(value = "id") long id,
                                  Model model) {
         Product product = productRepository.findById(id).orElseThrow(IllegalStateException::new);
+        model.addAttribute("characteristics", product.getCharacteristics().split("\n"));
+
         model.addAttribute("product", product);
         return "product-details";
     }
