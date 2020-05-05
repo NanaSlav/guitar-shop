@@ -19,6 +19,10 @@
         </div>
     </div>
     <div class="w3-container w3-text-theme main-content">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="w3-btn w3-theme w3-margin" value="Sign Out"/>
+        </form>
+
         <form class="w3-container w3-card-4 w3-margin" th:action="@{/account/edit}" method="post">
             <h2>Account information</h2>
             <div class="w3-section">
