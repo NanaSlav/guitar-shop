@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.nanaslav.guitarshop.model.User;
@@ -25,6 +26,12 @@ public class RegistrationController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("registration", true);
+        return "customer/home";
+    }
+
     @PostMapping("registration")
     public String addUser(@AuthenticationPrincipal User currentUser,
                           @RequestParam String email,
@@ -37,12 +44,20 @@ public class RegistrationController {
                           Model model) {
         if(!password.equals(passwordCheck)) {
             // passwords do not match
-            return "test";
+            model.addAttribute("hasMessage", true);
+            model.addAttribute("color", "w3-red");
+            model.addAttribute("title", "Error");
+            model.addAttribute("message", "Passwords do not match");
+            return registration(model);
         }
 
         if (userRepository.findByEmail(email) != null) {
             // user exist
-            return "test";
+            model.addAttribute("hasMessage", true);
+            model.addAttribute("color", "w3-red");
+            model.addAttribute("title", "Error");
+            model.addAttribute("message", "User with such email already exit");
+            return registration(model);
         }
         User user = new User();
         user.setEmail(email);

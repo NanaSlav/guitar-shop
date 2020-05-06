@@ -83,6 +83,12 @@
             document.getElementById('login-modal').style.display='block';
         </script>
     </div>
+
+    <div th:if="${registration}" >
+        <script>
+            document.getElementById('reg-modal').style.display='block';
+        </script>
+    </div>
     <div th:insert="common/footer :: footer"></div>
 </div>
 </body>

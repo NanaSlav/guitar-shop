@@ -3,15 +3,17 @@
 <body>
 <div th:fragment="reg">
     <div id="reg-modal" class="w3-modal">
-        <div class="w3-modal-content w3-card-4 w3-display-middle w3-animate-opacity" style="max-width: 800px;">
+        <div class="w3-modal-content w3-card-4 w3-display-middle w3-animate-opacity w3-display-container" style="max-width: 800px;">
                         <span onclick="document.getElementById('reg-modal').style.display='none'" class="w3-button w3-xlarge w3-display-topright">
                             &times;
                         </span>
-            <br>
 
+            <h2 class="w3-text-theme w3-margin">Sign up</h2>
+            <div th:if="${hasMessage}">
+                <div th:replace="common/info-box :: info (${color}, ${title}, ${message})"></div>
+            </div>
             <form class="w3-container" th:action="@{/registration}" method="post">
                 <div class="w3-section">
-                    <h2 class="w3-text-theme w3-margin">Sign up</h2>
                     <label>Email</label>
                     <input class="w3-input w3-border" type="email" required name="email">
                     <label>Password</label>
