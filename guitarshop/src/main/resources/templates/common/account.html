@@ -39,6 +39,9 @@
 
 <div th:fragment="banner">
     <div class="w3-container w3-theme w3-padding-32">
+        <div th:if="${hasMessage}">
+            <div th:replace="common/info-box :: info (${color}, ${title}, ${message})"></div>
+        </div>
         <h1>Account</h1>
         <div class="w3-large w3-padding-32 w3-margin">
             It's account info. You can change it whenever you want. Don't allow people to browse the site from your computer, or they'll look for private chat rooms."

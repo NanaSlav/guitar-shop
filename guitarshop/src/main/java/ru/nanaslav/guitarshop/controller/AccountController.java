@@ -43,38 +43,63 @@ public class AccountController {
                               @RequestParam String name,
                               @RequestParam String surname,
                               @RequestParam String phone,
-                              @RequestParam Date dateOfBirth) {
+                              @RequestParam String dateOfBirth,
+                              Model model) {
         User user = userRepository.findByEmail(currentUser.getEmail());
+        model.addAttribute("hasMessage", true);
         if (!currentUser.getEmail().equals(email) && userRepository.findByEmail(email) != null) {
             // User with such email already exist
-            return "";
+            model.addAttribute("title", "Error");
+            model.addAttribute("color", "w3-red");
+            model.addAttribute("message", "User with such email already exists");
+            return accountPage(user, model);
         }
         user.setEmail(email);
         user.setName(name);
         user.setSurname(surname);
         user.setPhone(phone);
-        user.setDateOfBirth(dateOfBirth);
+        if (!dateOfBirth.equals("")) {
+            Date date = Date.valueOf(dateOfBirth);
+            user.setDateOfBirth(date);
+        }
         userRepository.save(user);
-        return "redirect:/account";
+        model.addAttribute("color", "w3-green");
+        model.addAttribute("title", "Success");
+        model.addAttribute("message", "Account information is successfully changed");
+        return accountPage(user, model);
     }
 
     @PostMapping("/password")
     public String editPassword(@AuthenticationPrincipal User user,
                                @RequestParam String currentPassword,
                                @RequestParam String password,
-                               @RequestParam String passwordCheck) {
+                               @RequestParam String passwordCheck,
+                               Model model) {
+        model.addAttribute("hasMessage", true);
         if (bCryptPasswordEncoder.matches(currentPassword, user.getPassword())) {
             if (password.equals(passwordCheck)) {
                 user.setPassword(bCryptPasswordEncoder.encode(password));
                 userRepository.save(user);
                 // ok
+                model.addAttribute("color", "w3-green");
+                model.addAttribute("title", "Success");
+                model.addAttribute("message", "Password successfully changed");
             } else {
-                // passwords do not match
+                // Password do not match
+                model.addAttribute("color", "w3-red");
+                model.addAttribute("title", "Error");
+                model.addAttribute("message", "Passwords do not match");
             }
         } else {
             // invalid current password
+            model.addAttribute("color", "w3-red");
+            model.addAttribute("title", "Error");
+            model.addAttribute("message", "Invalid password");
         }
-        return "redirect:/account";
+        if (user.getAuthorities().contains(UserRole.ADMIN)) {
+            return "admin/account";
+        }
+        return accountPage(user, model);
     }
 
     @PostMapping("/delete")
