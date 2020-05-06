@@ -1,5 +1,6 @@
 package ru.nanaslav.guitarshop.controller;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +33,22 @@ public class RegistrationController {
         return "customer/home";
     }
 
+    private void saveData(Model model,
+                          String email,
+                          String name,
+                          String surname,
+                          String phone,
+                          String dateOfBirth) {
+        model.addAttribute("email", email);
+        model.addAttribute("name", name);
+        model.addAttribute("surname", surname);
+        model.addAttribute("phone", phone);
+        if (!dateOfBirth.equals("")) {
+            model.addAttribute("dateOfBirth", Date.valueOf(dateOfBirth));
+        }
+
+    }
+
     @PostMapping("registration")
     public String addUser(@AuthenticationPrincipal User currentUser,
                           @RequestParam String email,
@@ -48,6 +65,7 @@ public class RegistrationController {
             model.addAttribute("color", "w3-red");
             model.addAttribute("title", "Error");
             model.addAttribute("message", "Passwords do not match");
+            saveData(model, email, name, surname, phone, dateOfBirth);
             return registration(model);
         }
 
@@ -57,6 +75,7 @@ public class RegistrationController {
             model.addAttribute("color", "w3-red");
             model.addAttribute("title", "Error");
             model.addAttribute("message", "User with such email already exit");
+            saveData(model, "", name, surname, phone, dateOfBirth);
             return registration(model);
         }
         User user = new User();

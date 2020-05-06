@@ -13,19 +13,19 @@
             <form class="w3-container" th:action="@{/registration}" method="post">
                 <div class="w3-section">
                     <label>Email</label>
-                    <input class="w3-input w3-border" type="email" required name="email">
+                    <input class="w3-input w3-border" type="email" required name="email" th:value="${email}">
                     <label>Password</label>
                     <input class="w3-input w3-border" type="password" required name="password">
                     <label>Repeat password</label>
                     <input class="w3-input w3-border" type="password" required name="passwordCheck">
                     <label>Name</label>
-                    <input class="w3-input w3-border" type="text" required name="name">
+                    <input class="w3-input w3-border" type="text" required name="name" th:value="${name}">
                     <label>Surname</label>
-                    <input class="w3-input w3-border" type="text" required name="surname">
+                    <input class="w3-input w3-border" type="text" required name="surname" th:value="${surname}">
                     <label>Phone</label>
-                    <input class="w3-input w3-border" type="tel" required name="phone">
+                    <input class="w3-input w3-border" type="tel" required name="phone" th:value="${surname}">
                     <label>Date of birth</label>
-                    <input class="w3-input w3-border" type="date" name="dateOfBirth">
+                    <input class="w3-input w3-border" type="date" name="dateOfBirth" th:value="${dateOfBirth}">
                     <br>
                     <button type="submit" class="w3-btn w3-theme">Sign up</button>
                     <p>Already have account? <a href="#" onclick="document.getElementById('reg-modal').style.display='none';

@@ -32,6 +32,17 @@ public class ProductManagementController {
         return "admin/add-product";
     }
 
+    private void saveData(Model model,
+                          int price,
+                          String description,
+                          String characteristics,
+                          String producer) {
+        model.addAttribute("price", price);
+        model.addAttribute("description", description);
+        model.addAttribute("characteristics", characteristics);
+        model.addAttribute("producer", producer);
+    }
+
 
 
     @PostMapping("add")
@@ -48,6 +59,7 @@ public class ProductManagementController {
             model.addAttribute("color", "w3-red");
             model.addAttribute("title", "Error");
             model.addAttribute("message", "Product with such name already exists");
+            saveData(model, price, description, characteristics, producer);
             return "admin/add-product";
         }
 

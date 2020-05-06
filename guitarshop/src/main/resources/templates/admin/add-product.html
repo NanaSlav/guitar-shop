@@ -27,13 +27,13 @@
                     <option value="accessory">accessories</option>
                 </select>
                 <label class="w3-large">Producer</label>
-                <input type="text" class="w3-input w3-border" name="producer" required>
+                <input type="text" class="w3-input w3-border" name="producer" required th:value="${producer}">
                 <label class="w3-large">Description</label>
-                <textarea class="w3-input w3-border" name="description" required></textarea>
+                <textarea class="w3-input w3-border" name="description" required th:text="${description}"></textarea>
                 <label class="w3-large">Characteristics</label>
-                <textarea class="w3-input w3-border" name="characteristics" required></textarea>
+                <textarea class="w3-input w3-border" name="characteristics" required th:text="${description}"></textarea>
                 <label class="w3-large">Price</label>
-                <input type="number" class="w3-input w3-border" name="price" required>
+                <input type="number" class="w3-input w3-border" name="price" required th:value="${price}">
                 <label class="w3-large">Image</label>
                 <input type="file" accept="image/jpeg,image/png" class="w3-input w3-border" name="image">
                 <button class="w3-btn w3-theme w3-margin w3-left">Cancel</button>
