@@ -11,6 +11,7 @@ import ru.nanaslav.guitarshop.model.User;
 import ru.nanaslav.guitarshop.model.UserRole;
 import ru.nanaslav.guitarshop.repository.UserRepository;
 
+import java.sql.Date;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,30 +27,39 @@ public class RegistrationController {
 
     @PostMapping("registration")
     public String addUser(@AuthenticationPrincipal User currentUser,
-                          User user,
+                          @RequestParam String email,
+                          @RequestParam String password,
                           @RequestParam String passwordCheck,
+                          @RequestParam String name,
+                          @RequestParam String surname,
+                          @RequestParam String phone,
+                          @RequestParam String dateOfBirth,
                           Model model) {
-        if(!user.getPassword().equals(passwordCheck)) {
+        if(!password.equals(passwordCheck)) {
             // passwords do not match
             return "test";
         }
 
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.findByEmail(email) != null) {
             // user exist
             return "test";
         }
+        User user = new User();
+        user.setEmail(email);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setPhone(phone);
+        if (!dateOfBirth.equals("")) {
+            user.setDateOfBirth(Date.valueOf(dateOfBirth));
+        }
         user.setActive(true);
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         if (currentUser != null && currentUser.getAuthorities().contains(UserRole.ADMIN)) {
-            Set<UserRole> roles = new HashSet<>();
-            roles.add(UserRole.USER);
-            roles.add(UserRole.ADMIN);
-            user.setRoles(roles);
+            user.setRoles(Collections.singleton(UserRole.ADMIN));
         } else {
             user.setRoles(Collections.singleton(UserRole.USER));
         }
         userRepository.save(user);
         return "redirect:/login";
-
     }
 }
