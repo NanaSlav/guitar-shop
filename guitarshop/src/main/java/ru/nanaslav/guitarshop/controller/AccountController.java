@@ -103,11 +103,11 @@ public class AccountController {
     }
 
     @PostMapping("/delete")
-    public String deleteAccount(@AuthenticationPrincipal User user) {
+    public String deleteAccount(@AuthenticationPrincipal User user, Model model) {
         user.setActive(false);
         user.setEmail(null);
         userRepository.save(user);
         SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
-        return "redirect:/";
+        return "home";
     }
 }

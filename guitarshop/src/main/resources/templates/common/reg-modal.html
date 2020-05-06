@@ -9,9 +9,7 @@
                         </span>
 
             <h2 class="w3-text-theme w3-margin">Sign up</h2>
-            <div th:if="${hasMessage}">
-                <div th:replace="common/info-box :: info (${color}, ${title}, ${message})"></div>
-            </div>
+            <div th:replace="common/info-box :: info (hasMessage=${hasMessage}, color=${color}, title=${title}, message=${message})"></div>
             <form class="w3-container" th:action="@{/registration}" method="post">
                 <div class="w3-section">
                     <label>Email</label>

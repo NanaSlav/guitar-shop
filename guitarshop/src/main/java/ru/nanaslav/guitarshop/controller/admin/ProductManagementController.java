@@ -3,6 +3,7 @@ package ru.nanaslav.guitarshop.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,9 +41,14 @@ public class ProductManagementController {
                              @RequestParam String characteristics,
                              @RequestParam String producer,
                              @RequestParam String category,
-                             @RequestParam("image") MultipartFile image) throws IOException {
+                             @RequestParam("image") MultipartFile image,
+                             Model model) throws IOException {
         if (productRepository.findByName(name) != null) {
-            return "";
+            model.addAttribute("hasMessage", true);
+            model.addAttribute("color", "w3-red");
+            model.addAttribute("title", "Error");
+            model.addAttribute("message", "Product with such name already exists");
+            return "admin/add-product";
         }
 
         Product product = new Product();
@@ -88,7 +94,12 @@ public class ProductManagementController {
         product.setCharacteristics(characteristics);
         productRepository.save(product);
 
-        return "redirect:/";
+        model.addAttribute("hasMessage", true);
+        model.addAttribute("color", "w3-green");
+        model.addAttribute("title", "Success");
+        model.addAttribute("message", "Product is successfully added");
+
+        return "admin/add-product";
 
     }
 }

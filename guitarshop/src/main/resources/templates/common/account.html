@@ -40,7 +40,7 @@
 <div th:fragment="banner">
     <div class="w3-container w3-theme w3-padding-32">
         <div th:if="${hasMessage}">
-            <div th:replace="common/info-box :: info (${color}, ${title}, ${message})"></div>
+            <div th:replace="common/info-box :: info (hasMessage=${hasMessage}, color=${color}, title=${title}, message=${message})"></div>
         </div>
         <h1>Account</h1>
         <div class="w3-large w3-padding-32 w3-margin">
