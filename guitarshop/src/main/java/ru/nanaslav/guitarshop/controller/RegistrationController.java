@@ -97,11 +97,11 @@ public class RegistrationController {
             user.setRoles(Collections.singleton(UserRole.ADMIN));
             userRepository.save(user);
         } else {
-            user.setRoles(Collections.singleton(UserRole.USER));
-            Cart cart = new Cart(user);
-            cart.setUser(user);
+            user.setRoles(Collections.singleton(UserRole.ADMIN));
+            // Cart cart = new Cart(user);
+            // cart.setUser(user);
             userRepository.save(user);
-            cartRepository.save(cart);
+            // cartRepository.save(cart);
         }
         return "redirect:/login";
     }

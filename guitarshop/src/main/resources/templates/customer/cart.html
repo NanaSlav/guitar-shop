@@ -11,8 +11,42 @@
 <div th:insert="common/header :: customer"></div>
 <div th:insert="common/menu :: customer"></div>
 <div class="w3-main w3-theme-l4">
+    <div class="w3-container w3-theme w3-padding-32">
+        <h2>Cart</h2>
+        <div class="w3-large w3-padding w3-margin">
+            Thank for your choice. Sure you'll like our guitars.  They're based on Gibson's '56 and '57 archtop models, which are considered pretty famous (they do have popularity ratings in the teens).  A few years ago I bought a '57 for $29. I'm sure we can rock out with them.
+            The guitars are turned and then laminated (like your board) by hand. The top is laminated first and then the back is turned by hand.  That's why the guitars have extremely heavy layers of material in them.  The '57 and '56 have very different top laminate, so it's harder to get the white color to look good. (Although it does come out nice with a
+        </div>
+    </div>
     <div class="w3-container w3-text-theme main-content">
+        <table class="w3-table-all w3-margin">
+            <tr>
+                <th>№</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+                <th>Delete</th>
+            </tr>
 
+            <tr th:each="item : ${items}">
+                <td>number</td>
+                <td>
+                    <img th:src="'/img/' + ${item.getProduct().getImage()}" style="width: 60px">
+                </td>
+                <td th:text="${item.getProduct().getName()}"></td>
+                <td th:text="${item.getProduct().getPrice()}"></td>
+                <td>
+                    <input type="number" class="w3-input w3-border" th:value="${item.getQuantity()}">
+                </td>
+                <td th:text="${item.getProduct().getPrice() * item.getQuantity()}"></td>
+                <td><button class="w3-btn material-icons">delete</button></td>
+            </tr>
+        </table>
+
+        <a href="#" class="w3-btn w3-theme">Place an order</a>
+        <a href="/" class="w3-btn w3-theme">Back to shop</a>
     </div>
     <div th:insert="common/footer :: footer"></div>
 </div>

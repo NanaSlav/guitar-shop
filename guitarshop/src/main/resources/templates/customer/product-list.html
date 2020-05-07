@@ -57,7 +57,7 @@
                 <div class="w3-col m3 w3-margin product-card w3-display-container">
 
                         <div th:if="${product.getImage() != null}">
-                            <img th:src="'/img/' + ${product.getImage()}" width="160" class="w3-margin">
+                            <img th:src="'/img/' + ${product.getImage()}" style="height: 300px" class="w3-margin">
                         </div>
                         <div th:if="${product.getImage() == null}">
                             <img th:src="'/img/default.png'" width="230" class="w3-margin">

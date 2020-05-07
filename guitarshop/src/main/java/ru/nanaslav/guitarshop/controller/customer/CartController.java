@@ -25,7 +25,12 @@ public class CartController {
 
 
     @GetMapping
-    public String cart(Model model) { return "customer/cart"; }
+    public String cart(Model model,
+                       @AuthenticationPrincipal User user) {
+        Cart cart = cartRepository.findByUser(user);
+        model.addAttribute("items", cart.getItems());
+        return "customer/cart";
+    }
 
     @GetMapping("/add/{id}")
     public String addToCart(@PathVariable(value = "id") long id,
