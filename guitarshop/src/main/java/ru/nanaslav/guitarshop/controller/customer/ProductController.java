@@ -3,14 +3,16 @@ package ru.nanaslav.guitarshop.controller.customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.nanaslav.guitarshop.model.Category;
-import ru.nanaslav.guitarshop.model.Product;
+import ru.nanaslav.guitarshop.model.*;
+import ru.nanaslav.guitarshop.repository.CartItemRepository;
+import ru.nanaslav.guitarshop.repository.CartRepository;
 import ru.nanaslav.guitarshop.repository.ProductRepository;
 import ru.nanaslav.guitarshop.repository.UserRepository;
 
@@ -23,6 +25,10 @@ public class ProductController {
     UserRepository userRepository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CartRepository cartRepository;
+    @Autowired
+    CartItemRepository cartItemRepository;
 
     private void setPages(int page, int last, int size, Model model) {
         ArrayList<Integer> p = new ArrayList<>();
@@ -147,11 +153,17 @@ public class ProductController {
 
     @GetMapping("{id}")
     public String productDetails(@PathVariable(value = "id") long id,
+                                 @AuthenticationPrincipal User user,
                                  Model model) {
         Product product = productRepository.findById(id).orElseThrow(IllegalStateException::new);
         model.addAttribute("characteristics", product.getCharacteristics().split("\n"));
-
         model.addAttribute("product", product);
+        Cart cart = cartRepository.findByUser(user);
+        if (cart.hasProduct(product)) {
+            model.addAttribute("inCart", true);
+        } else {
+            model.addAttribute("inCart", false);
+        }
         return "customer/product-details";
     }
 }

@@ -55,4 +55,13 @@ public class Cart {
         item.setCart(this);
         cartItemRepository.save(item);
     }
+
+    public boolean hasProduct(Product product) {
+        for (CartItem item : items) {
+            if (item.getProduct().getId() == product.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

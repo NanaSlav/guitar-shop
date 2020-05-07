@@ -42,7 +42,13 @@
             </div>
             <div class="w3-col m6 w3-right-align">
                 <h2 class="w3-text-theme" th:text="${product.getPrice() + ' $'}"></h2>
-                <a class="w3-btn w3-theme w3-margin" th:href="@{'/cart/add/' + ${product.getId()}}">Buy</a>
+                <div th:if="${!inCart}">
+                    <a class="w3-btn w3-theme w3-margin" th:href="@{'/cart/add/' + ${product.getId()}}">Buy</a>
+                </div>
+                <div th:if="${inCart}">
+                    <a class="w3-btn w3-theme-l3 w3-margin" th:href="@{/cart}">To cart</a>
+                </div>
+
             </div>
         </div>
     </div>
