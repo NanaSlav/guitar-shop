@@ -11,6 +11,10 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    User user;
+
     @OneToMany(
             mappedBy = "cart",
             cascade = {
@@ -28,4 +32,7 @@ public class Cart {
 
     public void setId(long id) { this.id = id; }
 
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 }

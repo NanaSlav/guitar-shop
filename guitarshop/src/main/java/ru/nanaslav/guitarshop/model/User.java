@@ -27,10 +27,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    Cart cart;
-
 
     public long getId() { return id; }
 
@@ -63,10 +59,6 @@ public class User implements UserDetails {
     public Set<UserRole> getRoles() { return roles; }
 
     public void setRoles(Set<UserRole> roles) { this.roles = roles; }
-
-    public Cart getCart() { return cart; }
-
-    public void setCart(Cart cart) { this.cart = cart; }
 
     public Date getDateOfBirth() { return dateOfBirth; }
 
