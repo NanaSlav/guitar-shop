@@ -98,7 +98,7 @@ public class RegistrationController {
             userRepository.save(user);
         } else {
             user.setRoles(Collections.singleton(UserRole.USER));
-            Cart cart = new Cart();
+            Cart cart = new Cart(user);
             cart.setUser(user);
             userRepository.save(user);
             cartRepository.save(cart);

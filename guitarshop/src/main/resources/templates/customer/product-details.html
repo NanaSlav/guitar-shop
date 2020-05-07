@@ -42,7 +42,7 @@
             </div>
             <div class="w3-col m6 w3-right-align">
                 <h2 class="w3-text-theme" th:text="${product.getPrice() + ' $'}"></h2>
-                <button class="w3-btn w3-theme-l1 w3-margin">Buy</button>
+                <a class="w3-btn w3-theme w3-margin" th:href="@{'/cart/add/' + ${product.getId()}}">Buy</a>
             </div>
         </div>
     </div>

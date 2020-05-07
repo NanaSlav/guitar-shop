@@ -16,7 +16,7 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    private byte quantity;
+    private int quantity;
 
     public long getId() { return id; }
 
@@ -26,9 +26,9 @@ public class CartItem {
 
     public void setProduct(Product product) { this.product = product; }
 
-    public byte getQuantity() { return quantity; }
+    public int getQuantity() { return quantity; }
 
-    public void setQuantity(byte quantity) { this.quantity = quantity; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
 
     public Cart getCart() { return cart; }
 
