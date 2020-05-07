@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.nanaslav.guitarshop.model.Cart;
 import ru.nanaslav.guitarshop.model.User;
 import ru.nanaslav.guitarshop.model.UserRole;
+import ru.nanaslav.guitarshop.repository.CartRepository;
 import ru.nanaslav.guitarshop.repository.UserRepository;
 
 import java.sql.Date;
@@ -22,6 +24,9 @@ import java.util.Set;
 public class RegistrationController {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CartRepository cartRepository;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -90,8 +95,13 @@ public class RegistrationController {
         user.setPassword(bCryptPasswordEncoder.encode(password));
         if (currentUser != null && currentUser.getAuthorities().contains(UserRole.ADMIN)) {
             user.setRoles(Collections.singleton(UserRole.ADMIN));
+            user.setCart(null);
         } else {
             user.setRoles(Collections.singleton(UserRole.USER));
+            Cart cart = new Cart();
+            // cart.setUser(user);
+            // cartRepository.save(cart);
+            user.setCart(cart);
         }
         userRepository.save(user);
         return "redirect:/login";

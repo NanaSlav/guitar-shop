@@ -27,8 +27,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;
 
-    @OneToOne
-    @JoinColumn(name = "cart")
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     Cart cart;
 
 
