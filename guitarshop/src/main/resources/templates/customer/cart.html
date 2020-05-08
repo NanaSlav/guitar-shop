@@ -42,7 +42,13 @@
                     <td th:text="${item.getProduct().getName()}"></td>
                     <td th:text="${item.getProduct().getPrice()}"></td>
                     <td>
-                        <input type="number" class="w3-input w3-border" th:value="${item.getQuantity()}">
+                        <form th:action="@{'/cart/update/' + ${item.getId()}}" method="post">
+                            <div class="w3-row">
+                                <input type="number" class="w3-input w3-border w3-col m8" th:value="${item.getQuantity()}" name="quantity">
+                                <input type="submit" class="w3-btn w3-theme-l2 w3-col m4" value="update">
+                            </div>
+                        </form>
+
                     </td>
                     <td th:text="${item.getProduct().getPrice() * item.getQuantity()}"></td>
                     <td><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
