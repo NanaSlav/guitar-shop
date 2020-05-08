@@ -52,4 +52,11 @@ public class CartController {
         cartItemRepository.deleteById(id);
         return "redirect:/cart";
     }
+
+    @GetMapping("/clear")
+    public String clearCart(@AuthenticationPrincipal User user) {
+        Cart cart = cartRepository.findByUser(user);
+        cartItemRepository.deleteAll(cartItemRepository.findAllByCart(cart));
+        return "redirect:/cart";
+    }
 }
