@@ -27,6 +27,7 @@ public class CartController {
                        @AuthenticationPrincipal User user) {
         Cart cart = cartRepository.findByUser(user);
         model.addAttribute("items", cart.getItems());
+        model.addAttribute("total", cart.getTotal());
         return "customer/cart";
     }
 

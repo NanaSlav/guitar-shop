@@ -33,4 +33,8 @@ public class CartItem {
     public Cart getCart() { return cart; }
 
     public void setCart(Cart cart) { this.cart = cart; }
+
+    public int getCost() {
+        return product.getPrice() * quantity;
+    }
 }

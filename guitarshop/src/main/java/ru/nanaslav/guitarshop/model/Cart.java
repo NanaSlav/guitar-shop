@@ -64,4 +64,12 @@ public class Cart {
         }
         return false;
     }
+
+    public int getTotal() {
+        int total = 0;
+        for (CartItem item : items) {
+            total += item.getCost();
+        }
+        return total;
+    }
 }

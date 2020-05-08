@@ -34,8 +34,9 @@
                     <th>№</th><th>Image</th><th>Name</th>
                     <th>Price</th><th>Quantity</th><th>Cost</th><th>Delete</th>
                 </tr>
-                <tr th:each="item : ${items}">
-                    <td>number</td>
+
+                <tr th:each="item, iter : ${items}">
+                    <td th:utext="${iter.count}"></td>
                     <td>
                         <img th:src="'/img/' + ${item.getProduct().getImage()}" style="width: 60px">
                     </td>
@@ -48,12 +49,13 @@
                                 <input type="submit" class="w3-btn w3-theme-l2 w3-col m4" value="update">
                             </div>
                         </form>
-
                     </td>
                     <td th:text="${item.getProduct().getPrice() * item.getQuantity()}"></td>
                     <td><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
                 </tr>
             </table>
+            <h2 class="w3-text-theme">Total:</h2>
+            <p th:text="${total}"></p>
             <a href="#" class="w3-btn w3-theme">Place an order</a>
             <a href="/" class="w3-btn w3-theme">Back to shop</a>
         </div>
