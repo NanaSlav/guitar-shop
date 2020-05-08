@@ -19,35 +19,38 @@
         </div>
     </div>
     <div class="w3-container w3-text-theme main-content">
-        <a class="w3-btn w3-margin w3-theme" th:href="@{/cart/clear}">Clear cart</a>
-        <table class="w3-table-all w3-margin">
-            <tr>
-                <th>№</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Cost</th>
-                <th>Delete</th>
-            </tr>
+        <div th:if="${items.isEmpty()}">
+            <img th:src="'/img/empty-cart.png'">
+            <br>
+            <h2 class="w3-text-theme">Your cart is empty</h2>
+            <p class="w3-text-theme">Lets go shopping and choose new guitar!</p>
+            <a class="w3-btn w3-margin w3-theme-l2 w3-round-large" th:href="@{/}">Go shopping</a>
+        </div>
+        <div th:if="${!items.isEmpty()}">
+            <a class="w3-btn w3-margin w3-theme" th:href="@{/cart/clear}">Clear cart</a>
 
-            <tr th:each="item : ${items}">
-                <td>number</td>
-                <td>
-                    <img th:src="'/img/' + ${item.getProduct().getImage()}" style="width: 60px">
-                </td>
-                <td th:text="${item.getProduct().getName()}"></td>
-                <td th:text="${item.getProduct().getPrice()}"></td>
-                <td>
-                    <input type="number" class="w3-input w3-border" th:value="${item.getQuantity()}">
-                </td>
-                <td th:text="${item.getProduct().getPrice() * item.getQuantity()}"></td>
-                <td><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
-            </tr>
-        </table>
-
-        <a href="#" class="w3-btn w3-theme">Place an order</a>
-        <a href="/" class="w3-btn w3-theme">Back to shop</a>
+            <table class="w3-table-all w3-margin">
+                <tr>
+                    <th>№</th><th>Image</th><th>Name</th>
+                    <th>Price</th><th>Quantity</th><th>Cost</th><th>Delete</th>
+                </tr>
+                <tr th:each="item : ${items}">
+                    <td>number</td>
+                    <td>
+                        <img th:src="'/img/' + ${item.getProduct().getImage()}" style="width: 60px">
+                    </td>
+                    <td th:text="${item.getProduct().getName()}"></td>
+                    <td th:text="${item.getProduct().getPrice()}"></td>
+                    <td>
+                        <input type="number" class="w3-input w3-border" th:value="${item.getQuantity()}">
+                    </td>
+                    <td th:text="${item.getProduct().getPrice() * item.getQuantity()}"></td>
+                    <td><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
+                </tr>
+            </table>
+            <a href="#" class="w3-btn w3-theme">Place an order</a>
+            <a href="/" class="w3-btn w3-theme">Back to shop</a>
+        </div>
     </div>
     <div th:insert="common/footer :: footer"></div>
 </div>
