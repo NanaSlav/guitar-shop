@@ -41,7 +41,7 @@
                     <input type="number" class="w3-input w3-border" th:value="${item.getQuantity()}">
                 </td>
                 <td th:text="${item.getProduct().getPrice() * item.getQuantity()}"></td>
-                <td><button class="w3-btn material-icons">delete</button></td>
+                <td><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
             </tr>
         </table>
 

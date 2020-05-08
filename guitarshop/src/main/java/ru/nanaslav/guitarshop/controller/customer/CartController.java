@@ -46,4 +46,10 @@ public class CartController {
         }
         return "redirect:/products/" + id;
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteItem(@PathVariable(value = "id") long id) {
+        cartItemRepository.deleteById(id);
+        return "redirect:/cart";
+    }
 }
