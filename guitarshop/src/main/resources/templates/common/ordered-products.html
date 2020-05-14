@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="products">
+    <table class="w3-table-all w3-margin">
+        <tr>
+            <th>№</th><th>Image</th><th>Name</th>
+            <th>Price</th><th>Quantity</th><th>Cost</th>
+            <th th:if="${editable}">Delete</th>
+        </tr>
+
+        <tr th:each="item, iter : ${items}" class="w3-hover-theme-l3">
+            <td th:utext="${iter.count}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
+            <td th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'">
+                <img th:src="'/img/' + ${item.getProduct().getImage()}" style="width: 60px">
+            </td>
+            <td th:text="${item.getProduct().getName()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
+            <td th:text="${item.getProduct().getPrice()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
+            <td th:if="${editable}">
+                <form th:action="@{'/cart/update/' + ${item.getId()}}" method="post" th:if="${editable}">
+                    <div class="w3-row">
+                        <input type="number" class="w3-input w3-border w3-col m8" th:value="${item.getQuantity()}" name="quantity">
+                        <input type="submit" class="w3-btn w3-theme-l2 w3-col m4" value="update">
+                    </div>
+                </form>
+            </td>
+            <td th:if="${!editable}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'">
+                <p th:text="${item.getQuantity()}"></p>
+            </td>
+            <td th:text="${item.getProduct().getPrice() * item.getQuantity()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
+            <td th:if="${editable}"><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

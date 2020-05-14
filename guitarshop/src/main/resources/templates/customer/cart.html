@@ -33,35 +33,10 @@
         </div>
         <div th:if="${!items.isEmpty()}">
             <a class="w3-btn w3-margin w3-theme" th:href="@{/cart/clear}">Clear cart</a>
-
-            <table class="w3-table-all w3-margin">
-                <tr>
-                    <th>№</th><th>Image</th><th>Name</th>
-                    <th>Price</th><th>Quantity</th><th>Cost</th><th>Delete</th>
-                </tr>
-
-                <tr th:each="item, iter : ${items}" class="w3-hover-theme-l3">
-                    <td th:utext="${iter.count}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
-                    <td th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'">
-                        <img th:src="'/img/' + ${item.getProduct().getImage()}" style="width: 60px">
-                    </td>
-                    <td th:text="${item.getProduct().getName()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
-                    <td th:text="${item.getProduct().getPrice()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
-                    <td>
-                        <form th:action="@{'/cart/update/' + ${item.getId()}}" method="post">
-                            <div class="w3-row">
-                                <input type="number" class="w3-input w3-border w3-col m8" th:value="${item.getQuantity()}" name="quantity">
-                                <input type="submit" class="w3-btn w3-theme-l2 w3-col m4" value="update">
-                            </div>
-                        </form>
-                    </td>
-                    <td th:text="${item.getProduct().getPrice() * item.getQuantity()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
-                    <td><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
-                </tr>
-            </table>
+            <div th:replace="common/ordered-products :: products (editable=true)"></div>
             <h2 class="w3-text-theme">Total:</h2>
             <p th:text="${total}"></p>
-            <a href="#" class="w3-btn w3-theme">Place an order</a>
+            <a href="/order" class="w3-btn w3-theme">Place an order</a>
             <a href="/" class="w3-btn w3-theme">Back to shop</a>
         </div>
     </div>

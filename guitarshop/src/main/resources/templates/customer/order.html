@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+    <script>
+        function displayDelivery() {
+            document.getElementById("shops").style.display = "none";
+            document.getElementById("address").style.display = "block";
+        }
+
+        function displayPickUp() {
+            document.getElementById("shops").style.display = "block"
+            document.getElementById("address").style.display = "none";
+        }
+
+        function choose(shop, line) {
+            document.getElementById("shopId").setAttribute("value", shop);
+            var lines = document.getElementsByName("line");
+            for (i = 0; i < lines.length; i++) {
+                lines[i].setAttribute("class", "w3-container w3-hover-theme-l3")
+            }
+            line.setAttribute("class", "w3-theme w3-container");
+        }
+    </script>
+</head>
+<body>
+<div th:insert="common/header :: customer"></div>
+<div th:insert="common/menu :: customer"></div>
+<div class="w3-main w3-theme-l4">
+    <div class="w3-container w3-theme w3-padding-32">
+        <h2>Ordering</h2>
+        <div class="w3-large w3-padding w3-margin">
+            Thank for your choice. Sure you'll like our guitars.  They're based on Gibson's '56 and '57 archtop models, which are considered pretty famous (they do have popularity ratings in the teens).  A few years ago I bought a '57 for $29. I'm sure we can rock out with them.
+            The guitars are turned and then laminated (like your board) by hand. The top is laminated first and then the back is turned by hand.  That's why the guitars have extremely heavy layers of material in them.  The '57 and '56 have very different top laminate, so it's harder to get the white color to look good. (Although it does come out nice with a
+        </div>
+    </div>
+    <div class="w3-container w3-text-theme main-content">
+        <div th:replace="common/ordered-products :: products (editable=false)"></div>
+        <br>
+        <from class="w3-container">
+            <div class="w3-section">
+                <div class="w3-container">
+                    <input type="radio" class="w3-radio" checked name="delivery" value="delivery" id="delivery" onchange="displayDelivery()">
+                    <label class="w3-large w3-text-theme">Delivery</label>
+                    <br>
+                    <input type="radio" class="w3-radio" name="delivery" value="pick" id="pick" onchange="displayPickUp();">
+                    <label class="w3-large w3-text-theme">Pick up</label>
+                </div>
+                <br>
+                <div class="w3-container" id="address">
+                    <label class="w3-large w3-text-theme">Address:</label>
+                    <input type="text" class="w3-input w3-border" value="" placeholder="Enter address of delivery here">
+                </div>
+
+                <input type="number" id="shopId" value="0" hidden>
+            </div>
+
+            <div id="shops" style="display: none;">
+                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(1, this)">
+                    <h2>Shop1</h2>
+                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
+                    <p>7-th avenue, 15</p>
+                    <hr>
+                </div>
+                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(2, this)">
+                    <h2>Shop2</h2>
+                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
+                    <p>7-th avenue, 15</p>
+                    <hr>
+                </div>
+                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(3, this)">
+                    <h2>Shop3</h2>
+                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
+                    <p>7-th avenue, 15</p>
+                    <hr>
+                </div>
+                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(4, this)">
+                    <h2>Shop4</h2>
+                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
+                    <p>7-th avenue, 15</p>
+                    <hr>
+                </div>
+
+            </div>
+            <input type="submit" class="w3-btn w3-theme-l1 w3-round-large" value="OK">
+
+        </from>
+
+        <h2 class="w3-text-theme">Total:</h2>
+        <p class="w3-text-theme" th:text="${total}"></p>
+
+    </div>
+    <div th:insert="common/footer :: footer"></div>
+</div>
+</body>
+</html>
