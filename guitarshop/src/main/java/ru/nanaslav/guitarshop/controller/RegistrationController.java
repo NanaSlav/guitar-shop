@@ -94,14 +94,14 @@ public class RegistrationController {
         user.setActive(true);
         user.setPassword(bCryptPasswordEncoder.encode(password));
         if (currentUser != null && currentUser.getAuthorities().contains(UserRole.ADMIN)) {
-            user.setRoles(Collections.singleton(UserRole.ADMIN));
+            user.setRoles(Collections.singleton(UserRole.USER));
             userRepository.save(user);
         } else {
             user.setRoles(Collections.singleton(UserRole.ADMIN));
-            // Cart cart = new Cart(user);
-            // cart.setUser(user);
+            Cart cart = new Cart(user);
+            cart.setUser(user);
             userRepository.save(user);
-            // cartRepository.save(cart);
+            cartRepository.save(cart);
         }
         return "redirect:/login";
     }
