@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+    <script>
+        function goTo(id) {
+            document.location='/products/' + id;
+        }
+    </script>
 </head>
 <body>
 <div th:insert="common/header :: customer"></div>
@@ -35,13 +40,13 @@
                     <th>Price</th><th>Quantity</th><th>Cost</th><th>Delete</th>
                 </tr>
 
-                <tr th:each="item, iter : ${items}">
-                    <td th:utext="${iter.count}"></td>
-                    <td>
+                <tr th:each="item, iter : ${items}" class="w3-hover-theme-l3">
+                    <td th:utext="${iter.count}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
+                    <td th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'">
                         <img th:src="'/img/' + ${item.getProduct().getImage()}" style="width: 60px">
                     </td>
-                    <td th:text="${item.getProduct().getName()}"></td>
-                    <td th:text="${item.getProduct().getPrice()}"></td>
+                    <td th:text="${item.getProduct().getName()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
+                    <td th:text="${item.getProduct().getPrice()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
                     <td>
                         <form th:action="@{'/cart/update/' + ${item.getId()}}" method="post">
                             <div class="w3-row">
@@ -50,7 +55,7 @@
                             </div>
                         </form>
                     </td>
-                    <td th:text="${item.getProduct().getPrice() * item.getQuantity()}"></td>
+                    <td th:text="${item.getProduct().getPrice() * item.getQuantity()}" th:onclick="'goTo(' + ${item.getProduct().getId()} + ')'"></td>
                     <td><a class="w3-btn material-icons" th:href="@{'/cart/delete/' + ${item.getId()}}">delete</a></td>
                 </tr>
             </table>

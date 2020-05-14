@@ -30,7 +30,7 @@
 .w3-hover-theme:hover {color:#fff !important; background-color:#3b3d4b !important}
 .w3-hover-text-theme:hover {color:#3b3d4b !important}
 .w3-hover-border-theme:hover {border-color:#3b3d4b !important}
-
+.w3-hover-theme-l3:hover {color:#000 !important; background-color:#aaadbd !important}
 
 .w3-sidebar {
     z-index: 3;
