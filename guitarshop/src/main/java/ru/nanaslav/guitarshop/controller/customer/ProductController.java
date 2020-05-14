@@ -159,14 +159,11 @@ public class ProductController {
         model.addAttribute("characteristics", product.getCharacteristics().split("\n"));
         model.addAttribute("product", product);
         Cart cart = cartRepository.findByUser(user);
-        if (cart != null) {
-            if (cart.hasProduct(product)) {
-                model.addAttribute("inCart", true);
-            }
+        if (cart != null && (cart.hasProduct(product))) {
+            model.addAttribute("inCart", true);
         } else {
             model.addAttribute("inCart", false);
         }
-
         return "customer/product-details";
     }
 }
