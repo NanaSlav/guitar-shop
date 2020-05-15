@@ -125,6 +125,6 @@ public class AccountController {
         user.setEmail(null);
         userRepository.save(user);
         SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
-        return "redirect:/home";
+        return "redirect:/";
     }
 }
