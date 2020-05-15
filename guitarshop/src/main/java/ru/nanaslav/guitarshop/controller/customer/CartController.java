@@ -12,6 +12,8 @@ import ru.nanaslav.guitarshop.repository.CartRepository;
 import ru.nanaslav.guitarshop.repository.DeliveryRepository;
 import ru.nanaslav.guitarshop.repository.ProductRepository;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -27,10 +29,17 @@ public class CartController {
 
     @GetMapping
     public String cart(Model model,
-                       @AuthenticationPrincipal User user) {
+                       @AuthenticationPrincipal User user,
+                       @RequestParam(value = "orderSuccess", defaultValue = "false") boolean orderSuccess) {
         Cart cart = cartRepository.findByUser(user);
         model.addAttribute("items", cart.getItems());
         model.addAttribute("total", cart.getTotal());
+        if (orderSuccess) {
+            model.addAttribute("color", "w3-green");
+            model.addAttribute("title", "Success");
+            model.addAttribute("message", "Thank you for your order!");
+        }
+        model.addAttribute("orderSuccess", orderSuccess);
         return "customer/cart";
     }
 
@@ -56,9 +65,13 @@ public class CartController {
     }
 
     @GetMapping("/clear")
-    public String clearCart(@AuthenticationPrincipal User user) {
+    public String clearCart(@AuthenticationPrincipal User user,
+                            @RequestParam(value = "orderSuccess", defaultValue = "false") boolean orderSuccess) {
         Cart cart = cartRepository.findByUser(user);
         cartItemRepository.deleteAll(cartItemRepository.findAllByCart(cart));
+        if (orderSuccess) {
+            return "redirect:/cart?orderSuccess=true";
+        }
         return "redirect:/cart";
     }
 

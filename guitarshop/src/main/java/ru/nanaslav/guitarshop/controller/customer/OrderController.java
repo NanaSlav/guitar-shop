@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.nanaslav.guitarshop.model.*;
 import ru.nanaslav.guitarshop.repository.*;
 
+import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -48,7 +50,8 @@ public class OrderController {
     public String order(@RequestParam(name = "delivery") String deliveryType,
                         @RequestParam(name = "address", defaultValue = "") String address,
                         @RequestParam(name = "shopId", defaultValue = "0") long shopId,
-                        @AuthenticationPrincipal User user) {
+                        @AuthenticationPrincipal User user,
+                        Model model) {
         Delivery delivery;
         if (deliveryType.equals("delivery")) {
             delivery = new Delivery();
@@ -76,6 +79,6 @@ public class OrderController {
             orderedProduct.setProduct(item.getProduct());
             orderedProductRepository.save(orderedProduct);
         }
-        return "redirect:/cart/clear";
+        return "redirect:/cart/clear?orderSuccess=true";
     }
 }
