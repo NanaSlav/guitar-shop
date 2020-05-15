@@ -28,6 +28,16 @@ public class User implements UserDetails {
     private Set<UserRole> roles;
 
 
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }, orphanRemoval = true
+    )
+    Set<Order> orders;
+
+
     public long getId() { return id; }
 
     public void setId(long id) { this.id = id; }
@@ -64,6 +74,10 @@ public class User implements UserDetails {
 
     public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
+    public Set<Order> getOrders() { return orders; }
+
+    public void setOrders(Set<Order> orders) { this.orders = orders; }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -93,4 +107,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return isActive();
     }
+
+
 }

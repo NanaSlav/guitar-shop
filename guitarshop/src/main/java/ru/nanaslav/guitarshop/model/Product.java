@@ -35,6 +35,15 @@ public class Product {
     )
     Set<CartItem> items;
 
+    @OneToMany(
+            mappedBy = "product",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }, orphanRemoval = true
+    )
+    Set<OrderedProduct> orderedProducts;
+
 
     public long getId() {
         return id;
@@ -89,4 +98,12 @@ public class Product {
     public String getProducer() { return producer; }
 
     public void setProducer(String producer) { this.producer = producer; }
+
+    public Set<CartItem> getItems() { return items; }
+
+    public void setItems(Set<CartItem> items) { this.items = items; }
+
+    public Set<OrderedProduct> getOrderedProducts() { return orderedProducts; }
+
+    public void setOrderedProducts(Set<OrderedProduct> orderedProducts) { this.orderedProducts = orderedProducts; }
 }
