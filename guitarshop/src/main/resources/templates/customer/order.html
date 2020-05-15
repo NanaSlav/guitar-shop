@@ -41,7 +41,7 @@
     <div class="w3-container w3-text-theme main-content">
         <div th:replace="common/ordered-products :: products (editable=false)"></div>
         <br>
-        <from class="w3-container">
+        <form class="w3-container" th:action="@{/order}" method="post">
             <div class="w3-section">
                 <div class="w3-container">
                     <input type="radio" class="w3-radio" checked name="delivery" value="delivery" id="delivery" onchange="displayDelivery()">
@@ -53,10 +53,10 @@
                 <br>
                 <div class="w3-container" id="address">
                     <label class="w3-large w3-text-theme">Address:</label>
-                    <input type="text" class="w3-input w3-border" value="" placeholder="Enter address of delivery here">
+                    <input type="text" class="w3-input w3-border" value="" placeholder="Enter address of delivery here" name="address">
                 </div>
 
-                <input type="number" id="shopId" value="0" hidden>
+                <input type="number" id="shopId" value="0" hidden name="shopId">
             </div>
 
             <div id="shops" style="display: none;" th:each="shop : ${shops}">
@@ -69,7 +69,7 @@
             </div>
             <input type="submit" class="w3-btn w3-theme-l1 w3-round-large" value="OK">
 
-        </from>
+        </form>
 
         <h2 class="w3-text-theme">Total:</h2>
         <p class="w3-text-theme" th:text="${total}"></p>

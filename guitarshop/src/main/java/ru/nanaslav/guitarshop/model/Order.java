@@ -1,6 +1,7 @@
 package ru.nanaslav.guitarshop.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
@@ -9,6 +10,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private boolean executed;
+    private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
@@ -42,4 +45,12 @@ public class Order {
     public Set<OrderedProduct> getProducts() { return products; }
 
     public void setProducts(Set<OrderedProduct> products) { this.products = products; }
+
+    public boolean isExecuted() { return executed; }
+
+    public void setExecuted(boolean executed) { this.executed = executed; }
+
+    public Date getDate() { return date; }
+
+    public void setDate(Date date) { this.date = date; }
 }
