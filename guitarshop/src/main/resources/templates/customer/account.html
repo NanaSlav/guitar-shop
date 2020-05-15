@@ -19,57 +19,33 @@
         <div th:insert="common/account :: passwords"></div>
 
         <h2 class="w3-text-theme">Order history</h2>
-        <table class="w3-table-all w3-hoverable w3-card-4">
-            <tr class="w3-theme-l3 w3-text-theme">
-                <th>№</th>
-                <th>Order number</th>
-                <th>Date</th>
-                <th>Cost</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>12345</td>
-                <td>11.01.17</td>
-                <td>15 $</td>
-                <td>In progress</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>34561</td>
-                <td>14.08.15</td>
-                <td>670 $</td>
-                <td>Executed</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>91732</td>
-                <td>14.03.15</td>
-                <td>176 $</td>
-                <td>Executed</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>323341</td>
-                <td>12.01.15</td>
-                <td>67 $</td>
-                <td>Executed</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>32981</td>
-                <td>17.11.14</td>
-                <td>73 $</td>
-                <td>Executed</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>33463</td>
-                <td>14.09.14</td>
-                <td>153 $</td>
-                <td>Executed</td>
-            </tr>
-        </table>
+        <div th:if="${emptyHistory}" class="w3-display-container">
+            <h3 class="w3-text-theme">You have no orders yet. Let's go shopping</h3>
+            <img th:src="'/img/empty-history.png'" style="width: 600px">
+            <a class="w3-btn w3-round-large w3-theme-l3 w3-display-bottomleft w3-margin" th:href="@{/}">Go shopping</a>
+
+        </div>
+        <div th:if="${!emptyHistory}">
+            <table class="w3-table w3-hoverable w3-card">
+                <tr class="w3-theme-l3 w3-text-theme">
+                    <th>№</th>
+                    <th>Order number</th>
+                    <th>Date</th>
+                    <th>Cost</th>
+                    <th>Delivery</th>
+                    <th>Status</th>
+                </tr>
+                <tr th:each="order, iter : ${orders}">
+                    <td th:text="${iter.count}"></td>
+                    <td th:text="${order.getId()}"></td>
+                    <td th:text="${order.getDate()}"></td>
+                    <td th:text="${order.getTotal()}"></td>
+                    <td th:text="${order.getDelivery().getName()}"></td>
+                    <td th:if="${order.isExecuted()}">Executed</td>
+                    <td th:if="${!order.isExecuted()}">In Progress</td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div th:insert="common/footer :: footer"></div>
 </div>

@@ -30,6 +30,14 @@ public class Order {
     )
     Set<OrderedProduct> products;
 
+    public int getTotal() {
+        int total = 0;
+        for (OrderedProduct product : products) {
+            total += product.getCost();
+        }
+        return total;
+    }
+
     public long getId() { return id; }
 
     public void setId(long id) { this.id = id; }

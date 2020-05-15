@@ -18,6 +18,10 @@ public class OrderedProduct {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    public int getCost() {
+        return quantity*product.getPrice();
+    }
+
     public long getId() { return id; }
 
     public void setId(long id) { this.id = id; }

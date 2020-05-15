@@ -10,17 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.nanaslav.guitarshop.model.Order;
 import ru.nanaslav.guitarshop.model.User;
 import ru.nanaslav.guitarshop.model.UserRole;
+import ru.nanaslav.guitarshop.repository.OrderRepository;
 import ru.nanaslav.guitarshop.repository.UserRepository;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/account")
 public class AccountController {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -31,6 +38,16 @@ public class AccountController {
         model.addAttribute("user", user);
         if (user.getAuthorities().contains(UserRole.ADMIN)) {
             return "admin/account";
+        }
+
+        List<Order> orders = orderRepository.findAllByCustomer(user);
+        Collections.reverse(orders);
+
+        if (orders.isEmpty()) {
+            model.addAttribute("emptyHistory", true);
+        } else {
+            model.addAttribute("emptyHistory", false);
+            model.addAttribute("orders", orders);
         }
 
         return "customer/account";
