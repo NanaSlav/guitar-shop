@@ -7,15 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.nanaslav.guitarshop.model.Cart;
+import ru.nanaslav.guitarshop.model.DeliveryType;
 import ru.nanaslav.guitarshop.model.User;
 import ru.nanaslav.guitarshop.repository.CartItemRepository;
 import ru.nanaslav.guitarshop.repository.CartRepository;
+import ru.nanaslav.guitarshop.repository.DeliveryRepository;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    DeliveryRepository deliveryRepository;
 
 
     @GetMapping
@@ -25,6 +29,7 @@ public class OrderController {
         if (!cart.getItems().isEmpty()) {
             model.addAttribute("items", cart.getItems());
             model.addAttribute("total", cart.getTotal());
+            model.addAttribute("shops", deliveryRepository.findAllByDeliveryType(DeliveryType.PICKUP));
             return "customer/order";
         }
         return "redirect:/cart";

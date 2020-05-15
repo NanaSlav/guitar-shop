@@ -59,32 +59,13 @@
                 <input type="number" id="shopId" value="0" hidden>
             </div>
 
-            <div id="shops" style="display: none;">
-                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(1, this)">
-                    <h2>Shop1</h2>
-                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
-                    <p>7-th avenue, 15</p>
+            <div id="shops" style="display: none;" th:each="shop : ${shops}">
+                <div th:name="line" class="w3-container w3-hover-theme-l3" th:onclick="'choose(' + ${shop.getId()} + ', this)'">
+                    <h2 th:text="${shop.getName()}"></h2>
+                    <p th:text="${shop.getDescription()}"></p>
+                    <p th:text="${shop.getAddress()}"></p>
                     <hr>
                 </div>
-                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(2, this)">
-                    <h2>Shop2</h2>
-                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
-                    <p>7-th avenue, 15</p>
-                    <hr>
-                </div>
-                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(3, this)">
-                    <h2>Shop3</h2>
-                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
-                    <p>7-th avenue, 15</p>
-                    <hr>
-                </div>
-                <div name="line" class="w3-container w3-hover-theme-l3" onclick="choose(4, this)">
-                    <h2>Shop4</h2>
-                    <p>Guitar shop at 7 avenue is the biggest one in town with the latest guitars, amps, guitars, synth, bass, hands, housing, gear and so on, with rock and blues, jazz, gabber, hip hop, classical, electronics, guitars, control room, sound and more all offered for your own sale.</p>
-                    <p>7-th avenue, 15</p>
-                    <hr>
-                </div>
-
             </div>
             <input type="submit" class="w3-btn w3-theme-l1 w3-round-large" value="OK">
 

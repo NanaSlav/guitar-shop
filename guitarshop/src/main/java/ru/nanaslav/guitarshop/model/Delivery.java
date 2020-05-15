@@ -10,6 +10,10 @@ public class Delivery {
     private long id;
     private String address;
     private int price;
+    @Column(length = 64)
+    private String name;
+    @Column(length = 1024)
+    private String description;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
@@ -43,4 +47,12 @@ public class Delivery {
     public Set<Order> getOrders() { return orders; }
 
     public void setOrders(Set<Order> orders) { this.orders = orders; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
 }

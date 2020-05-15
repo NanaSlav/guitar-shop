@@ -94,10 +94,10 @@ public class RegistrationController {
         user.setActive(true);
         user.setPassword(bCryptPasswordEncoder.encode(password));
         if (currentUser != null && currentUser.getAuthorities().contains(UserRole.ADMIN)) {
-            user.setRoles(Collections.singleton(UserRole.USER));
+            user.setRoles(Collections.singleton(UserRole.ADMIN));
             userRepository.save(user);
         } else {
-            user.setRoles(Collections.singleton(UserRole.ADMIN));
+            user.setRoles(Collections.singleton(UserRole.USER));
             Cart cart = new Cart(user);
             cart.setUser(user);
             userRepository.save(user);
