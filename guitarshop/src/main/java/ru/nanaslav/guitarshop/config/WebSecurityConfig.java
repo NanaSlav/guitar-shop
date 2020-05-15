@@ -8,7 +8,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import ru.nanaslav.guitarshop.security.CustomUrlAuthenticationSuccessHandler;
 import ru.nanaslav.guitarshop.service.UserService;
 
 @Configuration
@@ -32,13 +35,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                     .loginPage("/login")
+                    .successHandler(customSuccessHandler())
                     .usernameParameter("email")
                     .passwordParameter("password")
                     .permitAll()
+
                 .and()
                 .logout()
                     .logoutSuccessUrl("/")
                 .permitAll();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return new CustomUrlAuthenticationSuccessHandler();
     }
 
     @Override
