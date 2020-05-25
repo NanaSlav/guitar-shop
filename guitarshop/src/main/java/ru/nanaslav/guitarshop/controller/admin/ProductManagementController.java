@@ -191,6 +191,7 @@ public class ProductManagementController {
             }
         }
         model.addAttribute("image", product.getImage());
+        model.addAttribute("isAvailable", product.isAvailable());
         return "admin/add-product";
     }
 
@@ -201,6 +202,7 @@ public class ProductManagementController {
                                     @RequestParam String description,
                                     @RequestParam String characteristics,
                                     @RequestParam String producer,
+                                    @RequestParam boolean isAvailable,
                                     @RequestParam("image") MultipartFile image,
                                     Model model) throws IOException {
         Product product = productRepository.findById(id).orElseThrow(IllegalStateException::new);
@@ -210,6 +212,7 @@ public class ProductManagementController {
         product.setProducer(producer);
         product.setCharacteristics(characteristics);
         product.setDescription(description);
+        product.setAvailable(isAvailable);
 
         if (!image.getOriginalFilename().equals("")) {
             String filename = "";

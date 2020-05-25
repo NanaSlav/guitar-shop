@@ -43,6 +43,13 @@
                 <textarea class="w3-input w3-border" name="characteristics" required th:text="${characteristics}"></textarea>
                 <label class="w3-large">Price</label>
                 <input type="number" class="w3-input w3-border" name="price" required th:value="${price}">
+                <div th:if="${!action.equals('/admin/products/add')}">
+                    <label class="w3-large">Availability</label><br>
+                    <label>Not Available</label>
+                    <input type="radio" name="isAvailable" value="false" th:checked="${!isAvailable}">
+                    <label>Available</label>
+                    <input type="radio" name="isAvailable" value="true" th:checked="${isAvailable}">
+                </div>
                 <label class="w3-large">Image</label>
                 <input type="file" accept="image/jpeg,image/png" class="w3-input w3-border" name="image" id="image">
                 <div class="w3-container" th:if="${image != null}">
