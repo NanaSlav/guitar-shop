@@ -1,15 +1,14 @@
 package ru.nanaslav.guitarshop.controller.admin;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.nanaslav.guitarshop.Pagination;
 import ru.nanaslav.guitarshop.model.Category;
@@ -19,6 +18,7 @@ import ru.nanaslav.guitarshop.repository.ProductRepository;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -69,7 +69,8 @@ public class ProductManagementController {
     }
 
     @GetMapping("/add")
-    public String addProductForm() {
+    public String addProductForm(Model model) {
+        model.addAttribute("action", "/admin/products/add");
         return "admin/add-product";
     }
 
@@ -95,6 +96,7 @@ public class ProductManagementController {
                              @RequestParam String category,
                              @RequestParam("image") MultipartFile image,
                              Model model) throws IOException {
+        model.addAttribute("action", "/admin/products/add");
         if (productRepository.findByName(name) != null) {
             model.addAttribute("hasMessage", true);
             model.addAttribute("color", "w3-red");
@@ -154,5 +156,77 @@ public class ProductManagementController {
 
         return "admin/add-product";
 
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editProduct(@PathVariable(value = "id") long id,
+                              Model model) {
+        Product product = productRepository.findById(id).orElseThrow(IllegalStateException::new);
+        model.addAttribute("action", "/admin/products/edit/" + id);
+        saveData(model,
+                product.getPrice(),
+                product.getDescription(),
+                product.getCharacteristics(),
+                product.getProducer());
+        model.addAttribute("name", product.getName());
+        Set<Category> categories = product.getCategories();
+        if (categories.contains(Category.ELECTRIC)) {
+            model.addAttribute("category", "electric");
+        } else {
+            if (categories.contains(Category.ACOUSTIC)) {
+                model.addAttribute("category", "acoustic");
+            } else {
+                if (categories.contains(Category.BASS)) {
+                    model.addAttribute("category", "bass");
+                }
+                 else {
+                    if (categories.contains(Category.AMP)) {
+                        model.addAttribute("category", "amp");
+                    } else {
+                        if (categories.contains(Category.ACCESSORY)) {
+                            model.addAttribute("category", "accessory");
+                        }
+                    }
+                }
+            }
+        }
+        model.addAttribute("image", product.getImage());
+        return "admin/add-product";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String saveEditedProduct(@PathVariable(value = "id") long id,
+                                    @RequestParam String name,
+                                    @RequestParam int price,
+                                    @RequestParam String description,
+                                    @RequestParam String characteristics,
+                                    @RequestParam String producer,
+                                    @RequestParam("image") MultipartFile image,
+                                    Model model) throws IOException {
+        Product product = productRepository.findById(id).orElseThrow(IllegalStateException::new);
+
+        product.setName(name);
+        product.setPrice(price);
+        product.setProducer(producer);
+        product.setCharacteristics(characteristics);
+        product.setDescription(description);
+
+        if (!image.getOriginalFilename().equals("")) {
+            String filename = "";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            filename = UUID.randomUUID().toString();
+            filename = filename + "." + image.getOriginalFilename();
+
+            image.transferTo(new File(uploadPath + "/" + filename));
+            product.setImage(filename);
+        }
+
+        productRepository.save(product);
+
+
+        return "redirect:/account";
     }
 }

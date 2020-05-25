@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+    <script>
+        function setImage() {
+            var input = document.getElementById("image");
+            var value = input.getAttribute("value");
+            document.getElementById("img").setAttribute("src", value);
+        }
+    </script>
 </head>
 <body>
 <div th:insert="common/header :: admin"></div>
@@ -13,12 +20,13 @@
 <div class="w3-main w3-theme-l4">
     <div class="w3-container w3-text-theme main-content">
         <div th:replace="common/info-box :: info (hasMessage=${hasMessage}, color=${color}, title=${title}, message=${message})"></div>
-        <form class="w3-container" th:action="@{/admin/products/add}" method="post" enctype="multipart/form-data">
+        <form class="w3-container" th:action="@{${action}}" method="post" enctype="multipart/form-data">
             <div class="w3-section">
                 <label class="w3-large">Product name</label>
-                <input type="text" class="w3-input w3-border" name="name" required>
+                <input type="text" class="w3-input w3-border" name="name" required th:value="${name}">
                 <label class="w3-large">Category</label>
-                <select class="w3-input w3-large" name="category" required>
+
+                <select class="w3-input w3-large" name="category" required th:if="${action.equals('/admin/products/add')}">
                     <option disabled>Choose category</option>
                     <option value="electric">electric guitars</option>
                     <option value="acoustic">acoustic guitars</option>
@@ -26,16 +34,20 @@
                     <option value="amp">amplifiers</option>
                     <option value="accessory">accessories</option>
                 </select>
+                <input th:if="${!action.equals('/admin/products/add')}" type="text" th:value="${category}" disabled> <br>
                 <label class="w3-large">Producer</label>
                 <input type="text" class="w3-input w3-border" name="producer" required th:value="${producer}">
                 <label class="w3-large">Description</label>
                 <textarea class="w3-input w3-border" name="description" required th:text="${description}"></textarea>
                 <label class="w3-large">Characteristics</label>
-                <textarea class="w3-input w3-border" name="characteristics" required th:text="${description}"></textarea>
+                <textarea class="w3-input w3-border" name="characteristics" required th:text="${characteristics}"></textarea>
                 <label class="w3-large">Price</label>
                 <input type="number" class="w3-input w3-border" name="price" required th:value="${price}">
                 <label class="w3-large">Image</label>
-                <input type="file" accept="image/jpeg,image/png" class="w3-input w3-border" name="image">
+                <input type="file" accept="image/jpeg,image/png" class="w3-input w3-border" name="image" id="image">
+                <div class="w3-container" th:if="${image != null}">
+                    <img th:src="'/img/' + ${image}" style="height: 300px">
+                </div>
                 <button class="w3-btn w3-theme w3-margin w3-left">Cancel</button>
                 <button type="submit" class="w3-btn w3-theme w3-margin w3-right">Save</button>
             </div>
