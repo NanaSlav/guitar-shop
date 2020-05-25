@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+</head>
+<body>
+<div th:insert="common/header :: admin"></div>
+<div th:insert="common/menu :: admin"></div>
+
+<div class="w3-main w3-theme-l4">
+    <div class="w3-container w3-theme w3-padding-32">
+        <h1>Orders</h1>
+        <div class="w3-large w3-padding-32 w3-margin">
+            It's orders list of our guitar shop. It is quite a large number of orders and does not appear to be some complicated database of exact numbers. Just a few orders per month from a few local guitar shops with a few scattered orders from a few websites. I took the samples from this list and show the difference.
+        </div>
+    </div>
+    <div class="w3-container w3-text-theme main-content">
+    <div class="w3-container w3-text-theme w3-card-4 w3-margin">
+        <h2>Customer</h2><br>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Name</h4></div>
+            <div class="w3-vol m10"><p th:text="${customer.getName()}"></p></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Surname</h4></div>
+            <div class="w3-vol m10"><p th:text="${customer.getSurname()}"></p></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Email</h4></div>
+            <div class="w3-vol m10"><p th:text="${customer.getEmail()}"></p></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Phone</h4></div>
+            <div class="w3-vol m10"><p th:text="${customer.getPhone()}"></p></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Date of birth</h4></div>
+            <div class="w3-vol m10"><p th:text="${customer.getDateOfBirth()}"></p></div>
+        </div>
+    </div>
+    <div class="w3-container w3-text-theme w3-card-4 w3-margin">
+        <h2>Order info</h2>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Order number</h4></div>
+            <div class="w3-col m10"><p th:text="${order.getId()}"></p></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Date</h4></div>
+            <div class="w3-col m10"><p th:text="${order.getDate()}"></p></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Delivery</h4></div>
+            <div class="w3-col m10"><p th:text="${order.getDelivery().getName()}"></p></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col m2"><h4>Total</h4></div>
+            <div class="w3-col m10"><p th:text="${order.getTotal()}"></p></div>
+        </div>
+    </div>
+    <div class="w3-container w3-text-theme"></div>
+        <h2>Products</h2>
+        <div th:replace="common/ordered-products :: products (editable=false)"></div>
+    </div>
+    <div class="w3-display-container">
+        <a href="/admin/orders" class="w3-btn w3-theme w3-round-large w3-display-bottomleft w3-margin">Cancel</a>
+        <form th:action="@{'/admin/orders/' + ${order.getId()}}" method="post">
+            <button type="submit" class="w3-btn w3-theme w3-round-large w3-display-bottomright w3-margin">Executed</button>
+        </form>
+    </div>
+
+
+
+    <div th:insert="common/footer :: footer"></div>
+</div>
+</body>
+</html>

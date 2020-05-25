@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+    <script>
+        function goTo(id) {
+            document.location = "/admin/orders/" + id;
+        }
+    </script>
 </head>
 <body>
 <div th:insert="common/header :: admin"></div>
@@ -29,15 +34,15 @@
                 <th>Cost</th>
                 <th>Status</th>
             </tr>
-            <tr th:each="order : ${orders}" onclick="document.location = '#'">
-                <td th:text="${order.getId()}"></td>
-                <td th:text="${order.getCustomer().getName()}"></td>
-                <td th:text="${order.getCustomer().getEmail()}"></td>
-                <td th:text="${order.getCustomer().getPhone()}"></td>
-                <td th:text="${order.getDate()}"></td>
-                <td th:text="${order.getTotal()}"></td>
-                <td th:if="${!order.isExecuted()}">In progress</td>
-                <td th:if="${order.isExecuted()}">Executed</td>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.getId()}" th:onclick="'goTo(' + ${order.getId()} + ')'"></td>
+                <td th:text="${order.getCustomer().getName()}" th:onclick="'goTo(' + ${order.getId()} + ')'"></td>
+                <td th:text="${order.getCustomer().getEmail()}" th:onclick="'goTo(' + ${order.getId()} + ')'"></td>
+                <td th:text="${order.getCustomer().getPhone()}" th:onclick="'goTo(' + ${order.getId()} + ')'"></td>
+                <td th:text="${order.getDate()}" th:onclick="'goTo(' + ${order.getId()} + ')'"></td>
+                <td th:text="${order.getTotal()}" th:onclick="'goTo(' + ${order.getId()} + ')'"></td>
+                <td th:if="${!order.isExecuted()}" th:onclick="'goTo(' + ${order.getId()} + ')'">In progress</td>
+                <td th:if="${order.isExecuted()}" th:onclick="'goTo(' + ${order.getId()} + ')'">Executed</td>
             </tr>
         </table>
         <div th:insert="common/pagination :: pages"></div>
