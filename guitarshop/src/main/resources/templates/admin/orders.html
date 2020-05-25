@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+</head>
+<body>
+<div th:insert="common/header :: admin"></div>
+<div th:insert="common/menu :: admin"></div>
+
+<div class="w3-main w3-theme-l4">
+    <div class="w3-container w3-theme w3-padding-32">
+        <h1>Orders</h1>
+        <div class="w3-large w3-padding-32 w3-margin">
+            It's orders list of our guitar shop. It is quite a large number of orders and does not appear to be some complicated database of exact numbers. Just a few orders per month from a few local guitar shops with a few scattered orders from a few websites. I took the samples from this list and show the difference.
+        </div>
+    </div>
+    <div class="w3-container w3-text-theme main-content">
+        <table class="w3-table-all w3-hoverable w3-margin">
+            <tr>
+                <th>Order number</th>
+                <th>Customer's name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date:time</th>
+                <th>Cost</th>
+                <th>Status</th>
+            </tr>
+            <tr th:each="order : ${orders}" onclick="document.location = '#'">
+                <td th:text="${order.getId()}"></td>
+                <td th:text="${order.getCustomer().getName()}"></td>
+                <td th:text="${order.getCustomer().getEmail()}"></td>
+                <td th:text="${order.getCustomer().getPhone()}"></td>
+                <td th:text="${order.getDate()}"></td>
+                <td th:text="${order.getTotal()}"></td>
+                <td th:if="${!order.isExecuted()}">In progress</td>
+                <td th:if="${order.isExecuted()}">Executed</td>
+            </tr>
+        </table>
+        <div th:insert="common/pagination :: pages"></div>
+    </div>
+    <div th:insert="common/footer :: footer"></div>
+</div>
+</body>
+</html>
