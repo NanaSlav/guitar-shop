@@ -227,6 +227,6 @@ public class ProductManagementController {
         productRepository.save(product);
 
 
-        return "redirect:/account";
+        return "redirect:/admin/products";
     }
 }

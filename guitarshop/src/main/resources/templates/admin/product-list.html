@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+    <script>
+        function goTo(id) {
+            document.location = "/admin/products/edit/" + id;
+        }
+    </script>
 </head>
 <body>
 <div th:insert="common/header :: admin"></div>
@@ -30,13 +35,13 @@
                 <th>Price</th>
                 <th>Availability</th>
             </tr>
-            <tr th:each="product : ${products}" onclick="document.location = '#'">
-                <td th:text="${product.getId()}"></td>
-                <td th:text="${product.getName()}"></td>
-                <td th:text="${product.getCategories()}"></td>
-                <td th:text="${product.getPrice()}"></td>
-                <td th:if="${product.isAvailable()}">Available</td>
-                <td th:if="${!product.isAvailable()}">Not available</td>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getId()}" th:onclick="'goTo(' + ${product.getId()} + ')'"></td>
+                <td th:text="${product.getName()}" th:onclick="'goTo(' + ${product.getId()} + ')'"></td>
+                <td th:text="${product.getCategories()}" th:onclick="'goTo(' + ${product.getId()} + ')'"></td>
+                <td th:text="${product.getPrice()}" th:onclick="'goTo(' + ${product.getId()} + ')'"></td>
+                <td th:if="${product.isAvailable()}" th:onclick="'goTo(' + ${product.getId()} + ')'">Available</td>
+                <td th:if="${!product.isAvailable()}" th:onclick="'goTo(' + ${product.getId()} + ')'">Not available</td>
             </tr>
         </table>
 
