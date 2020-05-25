@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.nanaslav.guitarshop.Pagination;
 import ru.nanaslav.guitarshop.model.*;
 import ru.nanaslav.guitarshop.repository.CartItemRepository;
 import ru.nanaslav.guitarshop.repository.CartRepository;
@@ -30,48 +31,6 @@ public class ProductController {
     @Autowired
     CartItemRepository cartItemRepository;
 
-    private void setPages(int page, int last, int size, Model model) {
-        ArrayList<Integer> p = new ArrayList<>();
-        if (page != 1) {
-            p.add(1);
-            if ((page - 3) > 2) {
-                p.add(0);
-                p.add(page - 3);
-                p.add(page - 2);
-                p.add(page - 1);
-                p.add(page);
-            } else {
-                for(int cur = 2; cur <= page; cur++) {
-                    p.add(cur);
-                }
-            }
-        } else {
-            p.add(1);
-        }
-        if (page != last) {
-            if ((page + 1) <= last) {
-                p.add(page + 1);
-                if ((page + 2) <= last) {
-                    p.add(page + 2);
-                    if ((page + 3) <= last) {
-                        p.add(page + 3);
-                        if ((page + 3) < last) {
-                            if ((page + 4) < last ) {
-                                p.add(0);
-                            }
-                            p.add(last);
-                        }
-                    }
-                }
-            }
-        }
-        int prev = (page != 1) ? page - 1 : 1;
-        int next = (page != last) ? page + 1 : last;
-        model.addAttribute("size", size);
-        model.addAttribute("prev", prev);
-        model.addAttribute("next", next);
-        model.addAttribute("pageable", p);
-    }
     @GetMapping("/electric")
     public String electricGuitars(@RequestParam(value = "page", defaultValue = "1") int page,
                                   @RequestParam(value = "size", defaultValue = "10") int size,
@@ -81,7 +40,7 @@ public class ProductController {
         PageRequest request = PageRequest.of(page - 1, size);
         Page<Product> products = productRepository.findAllByCategoriesContains(Category.ELECTRIC, request);
         int last = products.getTotalPages();
-        setPages(page, last, size, model);
+        Pagination.setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/electric/");
         model.addAttribute("products", products);
         return "customer/product-list";
@@ -96,7 +55,7 @@ public class ProductController {
         PageRequest request = PageRequest.of(page - 1, size);
         Page<Product> products = productRepository.findAllByCategoriesContains(Category.ACOUSTIC, request);
         int last = products.getTotalPages();
-        setPages(page,last,size,model);
+        Pagination.setPages(page,last,size,model);
         model.addAttribute("urlBegin", "/products/electric");
         model.addAttribute("products", products);
         return "customer/product-list";
@@ -113,7 +72,7 @@ public class ProductController {
         PageRequest request = PageRequest.of(page - 1, size);
         Page<Product> products = productRepository.findAllByCategoriesContains(Category.BASS, request);
         int last = products.getTotalPages();
-        setPages(page, last, size, model);
+        Pagination.setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/bass/");
         model.addAttribute("products", products);
         return "customer/product-list";
@@ -129,7 +88,7 @@ public class ProductController {
         PageRequest request = PageRequest.of(page - 1, size);
         Page<Product> products = productRepository.findAllByCategoriesContains(Category.ACCESSORY, request);
         int last = products.getTotalPages();
-        setPages(page, last, size, model);
+        Pagination.setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/accessories/");
         model.addAttribute("products", products);
         return "customer/product-list";
@@ -145,7 +104,7 @@ public class ProductController {
         PageRequest request = PageRequest.of(page - 1, size);
         Page<Product> products = productRepository.findAllByCategoriesContains(Category.AMP, request);
         int last = products.getTotalPages();
-        setPages(page, last, size, model);
+        Pagination.setPages(page, last, size, model);
         model.addAttribute("urlBegin", "/products/amplifiers/");
         model.addAttribute("products", products);
         return "customer/product-list";
