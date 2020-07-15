@@ -21,6 +21,8 @@ public class User implements UserDetails {
     private String password;
     private Date dateOfBirth;
     private boolean active;
+    private String token;
+
 
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -73,6 +75,10 @@ public class User implements UserDetails {
     public Date getDateOfBirth() { return dateOfBirth; }
 
     public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+
+    public String getToken() { return token; }
+
+    public void setToken(String token) { this.token = token; }
 
     public Set<Order> getOrders() { return orders; }
 

@@ -2,25 +2,30 @@ package ru.nanaslav.guitarshop.controller;
 
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.nanaslav.guitarshop.model.Cart;
 import ru.nanaslav.guitarshop.model.User;
 import ru.nanaslav.guitarshop.model.UserRole;
 import ru.nanaslav.guitarshop.repository.CartRepository;
 import ru.nanaslav.guitarshop.repository.UserRepository;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.sql.Date;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController {
     @Autowired
     UserRepository userRepository;
@@ -31,8 +36,11 @@ public class RegistrationController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    JavaMailSender mailSender;
 
-    @GetMapping("/registration")
+
+    @GetMapping
     public String registration(Model model) {
         model.addAttribute("registration", true);
         return "customer/home";
@@ -54,7 +62,7 @@ public class RegistrationController {
 
     }
 
-    @PostMapping("registration")
+    @PostMapping
     public String addUser(@AuthenticationPrincipal User currentUser,
                           @RequestParam String email,
                           @RequestParam String password,
@@ -63,7 +71,7 @@ public class RegistrationController {
                           @RequestParam String surname,
                           @RequestParam String phone,
                           @RequestParam String dateOfBirth,
-                          Model model) {
+                          Model model) throws MessagingException {
         if(!password.equals(passwordCheck)) {
             // passwords do not match
             model.addAttribute("hasMessage", true);
@@ -91,8 +99,27 @@ public class RegistrationController {
         if (!dateOfBirth.equals("")) {
             user.setDateOfBirth(Date.valueOf(dateOfBirth));
         }
-        user.setActive(true);
+        user.setActive(false);
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+
         user.setPassword(bCryptPasswordEncoder.encode(password));
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+
+        String htmlMessage = "<h1>Thank you for registration</h1>" +
+                "<a href=\"http://localhost:8080/registration/verification/" + user.getEmail() +
+                "/" + token+ "\">Confirm email </a>";
+
+        message.setContent(htmlMessage, "text/html");
+        helper.setTo(user.getEmail());
+        helper.setSubject("Verification email");
+
+        mailSender.send(message);
+
+
+
         if (currentUser != null && currentUser.getAuthorities().contains(UserRole.ADMIN)) {
             user.setRoles(Collections.singleton(UserRole.ADMIN));
             userRepository.save(user);
@@ -102,6 +129,17 @@ public class RegistrationController {
             cart.setUser(user);
             userRepository.save(user);
             cartRepository.save(cart);
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/verification/{email}/{token}")
+    public String verification(@PathVariable(value = "email") String email,
+                               @PathVariable(value = "token") String token) {
+        User user = userRepository.findByEmail(email);
+        if (user.getToken().equals(token)) {
+            user.setActive(true);
+            userRepository.save(user);
         }
         return "redirect:/login";
     }
